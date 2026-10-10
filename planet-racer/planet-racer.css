@@ -24,6 +24,17 @@ nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 15px; margin-bot
 nav a { text-decoration: none; color: var(--muted); }
 nav a.here { color: var(--ink); }
 .hero { text-align: center; padding: 40px 0 16px; }
+.game-hero { padding-top: 24px; }
+.game-icon {
+  display: block;
+  width: clamp(112px, 24vw, 144px);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto 18px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 0 28px #60d8ff18;
+}
 .hero h1 {
   margin: 0;
   font-size: clamp(38px, 9vw, 64px);

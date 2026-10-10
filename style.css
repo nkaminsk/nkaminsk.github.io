@@ -65,16 +65,13 @@ li { margin: 3px 0; }
   color: inherit;
   padding: 12px 0;
 }
-.project .badge {
+.project-icon {
   flex: none;
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #1a2a6c, #6a1b9a);
-  display: grid;
-  place-items: center;
-  color: #fff;
-  font-size: 26px;
+  object-fit: cover;
+  border: 1px solid var(--line);
 }
 .project strong { display: block; }
 .project span { color: var(--muted); }
