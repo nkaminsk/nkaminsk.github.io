@@ -1,0 +1,46 @@
+# Publishes nkaminsk.dev. The Planet Racer browser build is not kept in git (it is ~75 MB per
+# update); it comes from the newest release's planet-racer-web.zip and is unpacked into
+# planet-racer/play/ before upload. To ship a new game build: create a release with that zip,
+# then run this workflow (gh workflow run deploy-site.yml --ref main).
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add the Planet Racer browser build from the latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download --repo "$GITHUB_REPOSITORY" --pattern planet-racer-web.zip --dir "$RUNNER_TEMP/game"
+          mkdir -p planet-racer/play
+          unzip -q "$RUNNER_TEMP/game/planet-racer-web.zip" -d planet-racer/play
+          test -f planet-racer/play/index.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
