@@ -1,8 +1,8 @@
 :root {
   color-scheme: light;
-  --paper: #f5f3ed; --surface: #fffefa; --soft: #e8ecdf; --charcoal: #26292c;
-  --ink: #25282b; --muted: #414a4f; --accent: #344c30; --on-dark: #fffefa;
-  --on-dark-muted: #dee4d7; --border: #84917b;
+  --paper: #f5f3ed; --surface: #fffefa; --soft: #e7ecf5; --charcoal: #26292c;
+  --ink: #25282b; --muted: #414a4f; --accent: #294b82; --on-dark: #fffefa;
+  --on-dark-muted: #dce4f1; --border: #728198;
   font-family: "Segoe UI", system-ui, sans-serif; color: var(--ink); background: var(--paper);
   font-synthesis: none;
 }
@@ -24,6 +24,8 @@ a:focus-visible { outline: 3px solid var(--surface); outline-offset: 3px; box-sh
 .skip-link { position: absolute; z-index: 5; top: 1rem; left: 1rem; padding: .75rem 1rem; background: var(--charcoal); color: var(--on-dark); transform: translateY(-180%); }
 .skip-link:focus { transform: translateY(0); }
 .site-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem 2rem; padding-block: 1.4rem; border-bottom: 1px solid var(--border); }
+.brand-lockup { display: flex; align-items: baseline; flex-wrap: wrap; gap: .15rem .85rem; max-width: 100%; }
+.brand-owner { color: var(--muted); font-size: .9375rem; line-height: 1.6; font-weight: 600; }
 .wordmark { font-size: 2rem; font-weight: 700; letter-spacing: -.055em; color: var(--ink); text-decoration: none; white-space: nowrap; }
 .wordmark > span { color: var(--accent); }
 nav { display: flex; flex-wrap: wrap; gap: .2rem 1.75rem; }
