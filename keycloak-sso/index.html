@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="See how a focused Keycloak extension lets customers set up and maintain single sign-on through a scoped invitation, using your existing identity platform.">
+  <meta name="description" content="SSO Setup Links for Keycloak: invite a customer to create or update one SSO connection, scoped to one or more organizations.">
   <meta name="theme-color" content="#f6f7f3">
   <meta name="color-scheme" content="light">
-  <title>Self-service SSO for Keycloak · illimité</title>
+  <title>SSO Setup Links for Keycloak</title>
   <link rel="canonical" href="https://nkaminsk.dev/keycloak-sso/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
@@ -15,14 +15,15 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header shell">
-    <a class="brand" href="#main" aria-label="illimité — self-service SSO for Keycloak">
-      <span class="wordmark">illimité<span class="brand-dot" aria-hidden="true">.</span></span>
-      <span class="brand-label">Self-service SSO for Keycloak</span>
+    <a class="brand" href="#main" aria-label="SSO Setup Links for Keycloak">
+      <span class="wordmark">SSO Setup Links</span>
+      <span class="brand-label">Keycloak extension<br>by illimité</span>
     </a>
     <nav class="header-nav" aria-label="Page navigation">
       <a href="#walkthrough">Walkthrough</a>
+      <a href="#shared-connections">Shared connections</a>
+      <a href="#api">API</a>
       <a href="#installation">Installation</a>
-      <a href="#features">Features <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
 
@@ -52,7 +53,7 @@
           </div>
         </fieldset>
       </div>
-      <p class="walkthrough-note">Actual product screens with example data and masked credentials.</p>
+      <p class="walkthrough-note">Current owner and OIDC screens · synthetic example data. SAML examples show the earlier interface.</p>
 
       <nav class="step-nav" aria-label="Walkthrough steps">
         <ol>
@@ -68,15 +69,15 @@
           <div class="stage-copy">
             <p class="role-label"><span aria-hidden="true">●</span> Existing Keycloak owner</p>
             <h3 id="invite-heading">Start with a scoped invitation.</h3>
-            <p>Sign in with your existing Keycloak administrator login. Choose a realm connection, or an organization when Organizations are enabled.</p>
+            <p>Sign in with your existing Keycloak administrator account. Check one or more organizations for the connection, or choose a realm connection without an organization.</p>
             <p>Set the allowed protocol, expiry and testing policy. Share the generated link with the customer's identity-provider administrator.</p>
             <aside class="stage-aside"><strong>Your backend can do this too.</strong> Issue setup links through the REST API using an authorized Keycloak service account.</aside>
-            <p class="stage-takeaway">The recipient gets a setup link, without general Keycloak administration.</p>
+            <p class="stage-takeaway">One invitation creates one connection, shared by every selected organization.</p>
           </div>
           <figure class="product-screen">
-            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Create invitation</span><a href="assets/04-create-invitation.jpg" class="enlarge-link" data-enlarge data-caption="Owner panel — create a scoped invitation" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-            <div class="screen-scroll"><img src="assets/04-create-invitation.jpg" width="1440" height="1050" alt="The owner panel's invitation form, including realm or organization scope, protocol, expiry and test policy." fetchpriority="high"></div>
-            <figcaption>Actual owner interface · example data</figcaption>
+            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Two organizations, one connection</span><a href="assets/2026-10-31-create-shared-link.png" class="enlarge-link" data-enlarge data-caption="Create a setup link for two organizations" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+            <div class="screen-scroll"><img src="assets/2026-10-31-create-shared-link.png" width="1474" height="1244" alt="Create setup link with two organizations checked in the visible Organizations selection." fetchpriority="high"></div>
+            <figcaption>SSO Setup Links · one shared connection for two organizations</figcaption>
           </figure>
         </article>
 
@@ -87,25 +88,26 @@
             <div data-protocol="oidc">
               <p>Open the invitation and register an application with the customer's OpenID Connect provider. Enter its discovery or endpoint details and client credentials.</p>
               <p>Register the exact callback shown by the wizard. Then choose the stable identity and map the profile fields your application needs.</p>
+              <a class="text-link supporting-link" href="assets/2026-10-31-profile-mappings.png" data-enlarge data-caption="Prefilled profile mapping defaults" target="_blank" rel="noopener">See the mapping defaults <span aria-hidden="true">↗</span></a>
             </div>
             <div data-protocol="saml">
               <p>Open the invitation and import the customer's SAML metadata, or enter its entity ID, sign-on URL and signing certificate.</p>
               <p>Choose a stable NameID or released identity attribute. Once the draft is saved, register its exact ACS URL or import the generated service-provider metadata.</p>
               <a class="text-link supporting-link" href="assets/19-saml-exact-registration.jpg" data-enlarge data-caption="SAML wizard — exact ACS and service-provider registration" target="_blank" rel="noopener">See the SAML registration screen <span aria-hidden="true">↗</span></a>
             </div>
-            <aside class="stage-aside"><strong>What are mappings?</strong> They tell Keycloak which incoming values represent the username, email, first name and last name. The stable identity is a separate choice.</aside>
+            <aside class="stage-aside"><strong>Mappings start with useful defaults.</strong> Profile rules prefill incoming username, email and name sources. The recipient can edit sources the profile allows. Required and locked rules remain enforced; the stable account ID is a separate choice.</aside>
             <p class="stage-takeaway">The wizard saves a hidden draft before testing.</p>
           </div>
           <div class="protocol-screens">
             <figure class="product-screen" data-protocol="oidc">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC configuration</span><a href="assets/08-oidc-configuration.jpg" class="enlarge-link" data-enlarge data-caption="OIDC wizard — provider configuration" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/08-oidc-configuration.jpg" width="1440" height="1795" alt="The customer OIDC configuration page showing discovery, endpoints and client settings with secret values masked." loading="lazy"></div>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC configuration</span><a href="assets/2026-10-31-oidc-configuration.png" class="enlarge-link" data-enlarge data-caption="OIDC setup — provider configuration" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/2026-10-31-oidc-configuration.png" width="1265" height="1712" alt="The current customer OIDC configuration form with example provider details and a masked client secret." loading="lazy"></div>
               <figcaption>Actual customer interface · OIDC configuration</figcaption>
             </figure>
             <figure class="product-screen" data-protocol="saml">
               <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML configuration</span><a href="assets/17-saml-configuration.jpg" class="enlarge-link" data-enlarge data-caption="SAML wizard — metadata and provider configuration" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
               <div class="screen-scroll"><img src="assets/17-saml-configuration.jpg" width="1440" height="1793" alt="The customer SAML configuration page showing metadata import and identity-provider fields with certificate content masked." loading="lazy"></div>
-              <figcaption>Actual customer interface · SAML configuration</figcaption>
+              <figcaption>SAML configuration · earlier interface, 26 October 2026</figcaption>
             </figure>
           </div>
         </article>
@@ -114,21 +116,22 @@
           <div class="stage-copy">
             <p class="role-label"><span aria-hidden="true">●</span> Customer's IdP administrator</p>
             <h3 id="test-heading">Confirm one stable identity.</h3>
-            <p>This invitation requires two successful sign-in tests. Sign in as the same person twice; the second test requests fresh authentication.</p>
-            <p>The checks compare the stable identifier returned by the provider. A changing or transient identifier needs correction before activation.</p>
-            <aside class="stage-aside"><strong>Tests do not create users.</strong> These probes leave native users and federated-account links unchanged. Ordinary application sign-in follows the realm's account policies.</aside>
+            <p>Sign in twice with the same identity-provider account. Both tests must return the same stable account ID; the second test asks for fresh authentication.</p>
+            <p>A different account or changing ID fails the comparison. The same test pair checks the connection when several organizations share it.</p>
+            <a class="text-link supporting-link" href="assets/2026-10-31-different-account.png" data-enlarge data-caption="Different account on the second sign-in — comparison rejected" target="_blank" rel="noopener">See a different-account rejection <span aria-hidden="true">↗</span></a>
+            <aside class="stage-aside"><strong>Tests do not create users.</strong> The checks confirm a repeatable provider identity. They leave Keycloak users and linked accounts unchanged.</aside>
             <p class="stage-takeaway">The two-test policy is optional for new setup links. When enabled, it cannot be bypassed.</p>
           </div>
           <div class="protocol-screens">
             <figure class="product-screen" data-protocol="oidc">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC test results</span><a href="assets/12-oidc-two-tests.jpg" class="enlarge-link" data-enlarge data-caption="OIDC wizard — two successful sign-in tests" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/12-oidc-two-tests.jpg" width="1440" height="1683" alt="OIDC test results showing two successful sign-ins and confirmation of the same stable identity." loading="lazy"></div>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC test results</span><a href="assets/2026-10-31-oidc-two-tests.png" class="enlarge-link" data-enlarge data-caption="Two sign-in tests — same stable account ID" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/2026-10-31-oidc-two-tests.png" width="1459" height="1610" alt="Two successful OIDC sign-in tests confirming that the provider returned the same stable account ID." loading="lazy"></div>
               <figcaption>Two successful sign-in tests · OIDC</figcaption>
             </figure>
             <figure class="product-screen" data-protocol="saml">
               <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML test results</span><a href="assets/20-saml-two-tests.jpg" class="enlarge-link" data-enlarge data-caption="SAML wizard — two successful sign-in tests" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
               <div class="screen-scroll"><img src="assets/20-saml-two-tests.jpg" width="1440" height="1827" alt="SAML test results showing two successful sign-ins and confirmation of the same stable identity." loading="lazy"></div>
-              <figcaption>Two successful sign-in tests · SAML</figcaption>
+              <figcaption>SAML sign-in tests · earlier interface, 26 October 2026</figcaption>
             </figure>
           </div>
         </article>
@@ -138,20 +141,20 @@
             <p class="role-label"><span aria-hidden="true">●</span> Customer's IdP administrator</p>
             <h3 id="activate-heading">Put the connection into service.</h3>
             <p>Review the configuration and activate while the required test results are current. The draft becomes a native Keycloak identity provider.</p>
-            <p>The owner can see the completed invitation. Your team can then verify an ordinary application sign-in and native account reuse.</p>
-            <aside class="stage-aside"><strong>Maintenance has a guided path too.</strong> Issue a separate scoped link for credential rotation or explicitly permitted changes to an existing connection.</aside>
+            <p>The saved connection appears under every organization selected in the invitation. Your team can then verify an ordinary application sign-in.</p>
+            <aside class="stage-aside"><strong>Update the same connection later.</strong> Create another invitation from its connection row. Its existing organizations stay attached.</aside>
             <p class="stage-takeaway">Keycloak continues to own users, sessions and access decisions.</p>
           </div>
           <div class="protocol-screens">
             <figure class="product-screen" data-protocol="oidc">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC activation</span><a href="assets/14-oidc-complete.jpg" class="enlarge-link" data-enlarge data-caption="OIDC wizard — connection activated" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/14-oidc-complete.jpg" width="1440" height="1050" alt="The completed OIDC wizard confirming that the connection has been activated." loading="lazy"></div>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC activation</span><a href="assets/2026-10-31-oidc-complete.png" class="enlarge-link" data-enlarge data-caption="Shared OIDC connection activated" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/2026-10-31-oidc-complete.png" width="1474" height="1244" alt="The completed setup confirming that the shared OIDC connection is active." loading="lazy"></div>
               <figcaption>Actual activation screen · OIDC connection</figcaption>
             </figure>
             <figure class="product-screen" data-protocol="saml">
               <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML activation</span><a href="assets/21-saml-complete.jpg" class="enlarge-link" data-enlarge data-caption="SAML wizard — connection activated" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
               <div class="screen-scroll"><img src="assets/21-saml-complete.jpg" width="1440" height="1050" alt="The completed SAML wizard confirming that the connection has been activated." loading="lazy"></div>
-              <figcaption>Actual activation screen · SAML connection</figcaption>
+              <figcaption>SAML activation · earlier interface, 26 October 2026</figcaption>
             </figure>
           </div>
         </article>
@@ -169,11 +172,83 @@
     <section class="control-section shell section-space" id="features" aria-labelledby="features-heading">
       <div class="section-heading"><p class="eyebrow">Delegate the setup, keep the control</p><h2 id="features-heading">A useful layer around<br>the platform you already run.</h2><p>The extension handles the setup journey. Native Keycloak handles identity.</p></div>
       <div class="feature-grid">
-        <article><span class="feature-index" aria-hidden="true">01 / SCOPE</span><h3>Give each invitation boundaries.</h3><p>Choose its realm or organization, permitted protocol and expiry. Revoke a link when it is no longer needed. Organizations are optional.</p></article>
-        <article><span class="feature-index" aria-hidden="true">02 / POLICY</span><h3>Make good defaults reusable.</h3><p>Setup profiles are the owner's reusable rules for what a recipient can configure or change. Each invitation keeps the policy it was issued with.</p></article>
-        <article><span class="feature-index" aria-hidden="true">03 / MAINTENANCE</span><h3>Keep the handoff after launch.</h3><p>Use scoped links for client-secret or signing-certificate rotation. Maintenance profiles can allow selected connection changes, with two successful tests.</p></article>
+        <article><span class="feature-index" aria-hidden="true">01 / SCOPE</span><h3>Choose who shares the connection.</h3><p>Pick one or more organizations, a protocol and an expiry. A realm connection needs no organization. Revoke an unused invitation.</p></article>
+        <article><span class="feature-index" aria-hidden="true">02 / PROFILES</span><h3>Reuse the rules you need.</h3><p>Profiles set invitation rules and mapping defaults. Choose one during setup, use the configured default, or keep standard rules when no default is set.</p></article>
+        <article><span class="feature-index" aria-hidden="true">03 / UPDATES</span><h3>Keep an existing connection current.</h3><p>Issue a link for credential replacement or changes allowed by a profile. The customer updates that connection; its organization associations stay in place.</p></article>
       </div>
       <div class="ownership-note"><span class="ownership-mark" aria-hidden="true">↳</span><p><strong>Still your Keycloak.</strong> Native accounts, sessions, brokering and access policies stay with the host platform. The extension stays focused on SSO setup and maintenance.</p></div>
+    </section>
+
+    <section class="shell section-space" id="shared-connections" aria-labelledby="shared-heading">
+      <div class="section-heading"><p class="eyebrow">Organizations and connections</p><h2 id="shared-heading">One connection.<br>Several organizations.</h2><p>Check both organizations when creating the link. After activation, each organization shows the same saved connection. Add more later with <strong>Add organizations</strong>.</p></div>
+      <div class="shared-grid">
+        <div>
+          <h3>Find it under either organization.</h3>
+          <p>These are associations to one connection. Native Keycloak membership and sign-in rules still apply.</p>
+          <figure class="product-screen">
+            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Shared connection</span><a href="assets/2026-10-31-shared-connections.png" class="enlarge-link" data-enlarge data-caption="One saved connection shared by two organizations" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+            <div class="screen-scroll"><img src="assets/2026-10-31-shared-connections.png" width="1474" height="1244" alt="The owner connection list showing one saved connection associated with two organizations." loading="lazy"></div>
+            <figcaption>One connection · multiple native organization associations</figcaption>
+          </figure>
+        </div>
+        <div>
+          <h3>Create a link to update it.</h3>
+          <p>The update affects every organization using the connection. The issuer must have permission for all of them. If its associations change, issue a fresh update link.</p>
+          <figure class="product-screen">
+            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Update invitation</span><a href="assets/2026-10-31-update-shared-link.png" class="enlarge-link" data-enlarge data-caption="Update link scoped to every organization using the connection" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+            <div class="screen-scroll"><img src="assets/2026-10-31-update-shared-link.png" width="1474" height="1244" alt="The update invitation form showing the existing shared connection and all affected organizations." loading="lazy"></div>
+            <figcaption>A new invitation · the same connection and organizations</figcaption>
+          </figure>
+          <a class="text-link supporting-link" href="assets/2026-10-31-update-fields.png" data-enlarge data-caption="Customer update screen — only permitted changes are available" target="_blank" rel="noopener">See the customer’s update screen <span aria-hidden="true">↗</span></a>
+          <a class="text-link supporting-link" href="assets/2026-10-31-update-complete.png" data-enlarge data-caption="The tested update is active for both organizations" target="_blank" rel="noopener">See the completed update <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section-space" id="api" aria-labelledby="api-heading">
+      <div class="section-heading"><p class="eyebrow">For your backend</p><h2 id="api-heading">The same scoped invitation.<br>A small API request.</h2><p>The realm’s name goes in the URL; native organization IDs go in the JSON body. Use a Keycloak bearer token with permission for every affected organization.</p></div>
+      <pre class="api-code"><code>POST https://YOUR-KEYCLOAK/admin/realms/partner-demo/idp-setup-links
+Authorization: Bearer &lt;access-token&gt;
+Content-Type: application/json</code></pre>
+      <div class="api-grid">
+        <article>
+          <h3>Create one connection for two organizations</h3>
+          <pre class="api-code"><code>{
+  "organizationIds": ["&lt;org-id-a&gt;", "&lt;org-id-b&gt;"]
+}</code></pre>
+          <p>For one organization, use <code>{"organizationId":"&lt;org-id&gt;"}</code>. Send one organization field, never both.</p>
+        </article>
+        <article>
+          <h3>Create a credential-update link</h3>
+          <pre class="api-code"><code>{
+  "purpose": "ROTATE_CREDENTIALS",
+  "targetIdentityProviderId": "&lt;immutable-connection-id&gt;"
+}</code></pre>
+          <p>Use the connection’s immutable ID, not its name. Omit organization fields: the server derives and checks all its existing associations.</p>
+        </article>
+      </div>
+      <p class="api-outcome"><strong>The response contains a setup URL.</strong> Send it privately to the customer administrator. The API issues the invitation; the customer supplies settings and completes the wizard.</p>
+      <details class="api-more">
+        <summary>With optional settings</summary>
+        <pre class="api-code"><code>{
+  "purpose": "CREATE",
+  "organizationId": "&lt;org-id&gt;",
+  "allowedProviderTypes": ["oidc"],
+  "expirationSeconds": 86400,
+  "requireTwoSuccessfulTests": true,
+  "profileId": "&lt;profile-id&gt;",
+  "profileRevision": 1,
+  "allowedDomains": ["acme.example"]
+}</code></pre>
+        <p>Domain entries must already belong to that organization. For a shared connection, replace <code>organizationId</code> with <code>organizationIds</code> and omit <code>allowedDomains</code>.</p>
+        <p>Omit the profile fields to use the configured default or standard rules. An explicit revision must be the profile’s latest enabled revision. These settings can narrow its rules, never weaken them.</p>
+      </details>
+      <details class="api-more">
+        <summary>Find IDs and other actions</summary>
+        <p>Under the API base above, <code>GET /organizations</code> returns organization IDs. <code>GET /connections?organizationId=&lt;org-id&gt;</code> returns connection IDs in <code>items</code>. Discovery respects the caller’s permissions.</p>
+        <p>For broader connection changes, use <code>purpose: "MAINTAIN"</code> with a saved profile that permits the changes and requires two tests.</p>
+        <p>To add organizations directly, send <code>{"organizationIds":["&lt;additional-org-id&gt;"]}</code> to <code>POST /connections/&lt;immutable-connection-id&gt;/organizations</code>. This adds native associations without removing existing ones or issuing an invitation.</p>
+      </details>
     </section>
 
     <section class="installation-section section-space" id="installation" aria-labelledby="installation-heading">
@@ -193,12 +268,12 @@
 
   </main>
 
-  <footer class="site-footer shell"><div><span class="footer-wordmark">illimité.</span><p>A focused self-service SSO extension for Keycloak.</p></div><p>Development preview · 27 October 2026<br>Real interfaces. Example data.</p></footer>
+  <footer class="site-footer shell"><div><span class="footer-wordmark">SSO Setup Links</span><p>A Keycloak extension by illimité.</p></div><p>Development preview · 31 October 2026<br>Real interfaces. Example data.</p></footer>
 
   <dialog class="image-dialog" aria-labelledby="image-dialog-title" data-image-dialog>
     <div class="dialog-toolbar"><h2 id="image-dialog-title">Product screenshot</h2><button class="button button-secondary" type="button" data-close-image autofocus>Close <span aria-hidden="true">×</span></button></div>
     <div class="dialog-image-scroll" tabindex="0" role="region" aria-label="Full-size screenshot; scroll horizontally and vertically"><img alt="" data-dialog-image></div>
-    <p class="dialog-footnote">Original masked screenshot · scroll to inspect the full interface · Escape to close</p>
+    <p class="dialog-footnote">Synthetic example data · scroll to inspect the full interface · Escape to close</p>
   </dialog>
 </body>
 </html>

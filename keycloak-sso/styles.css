@@ -3,7 +3,7 @@
   --paper: #f6f7f3;
   --surface: #ffffff;
   --ink: #1c2b24;
-  --muted: #5b655e;
+  --muted: #3f4d44;
   --line: #d7ded5;
   --accent: #275b43;
   --tint: #e8eee4;
@@ -41,7 +41,7 @@ code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-siz
 
 .site-header { min-height: 114px; display: flex; align-items: center; justify-content: space-between; gap: 36px; border-bottom: 1px solid var(--line); }
 .brand { display: flex; align-items: center; gap: 20px; text-decoration: none; }
-.wordmark, .footer-wordmark { font-size: 1.95rem; font-weight: 500; letter-spacing: -.065em; line-height: 1.2; }
+.wordmark, .footer-wordmark { font-size: 1.6rem; font-weight: 600; letter-spacing: -.045em; line-height: 1.2; }
 .brand-dot { color: var(--accent); }
 .brand-label { max-width: 145px; padding-left: 20px; border-left: 1px solid var(--line); font-size: .71rem; line-height: 1.55; color: var(--muted); }
 .header-nav { display: flex; gap: 28px; align-items: center; font-size: .79rem; }
@@ -127,6 +127,20 @@ h1 span { color: var(--accent); }
 .ownership-mark { font-size: 1.5rem; color: var(--accent); line-height: 1.1; }
 .ownership-note p { max-width: 850px; font-size: .83rem; color: var(--muted); }
 .ownership-note strong { color: var(--ink); font-weight: 600; }
+.shared-grid, .api-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 32px; }
+.shared-grid > div, .api-grid > article { min-width: 0; }
+.shared-grid h3, .api-grid h3 { font-size: 1.12rem; line-height: 1.4; }
+.shared-grid > div > p, .api-grid p { margin-top: 12px; color: var(--muted); font-size: .84rem; }
+.shared-grid .product-screen { margin-top: 20px; }
+.api-code { min-width: 0; max-width: 100%; overflow-x: auto; margin: 20px 0 0; padding: 20px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); font-size: .83rem; line-height: 1.7; }
+.api-code code { overflow-wrap: normal; }
+.api-outcome { margin-top: 26px; color: var(--muted); font-size: .86rem; }
+.api-outcome strong { color: var(--ink); }
+.api-more { margin-top: 24px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 7px; }
+.api-more summary { cursor: pointer; font-size: .86rem; font-weight: 600; }
+.api-more p { margin-top: 15px; color: var(--muted); font-size: .83rem; }
+.api-more code { overflow-wrap: anywhere; }
+summary:focus-visible { outline: 3px solid #397b56; outline-offset: 5px; }
 .installation-section { padding-block: 58px; background: var(--soft); border-block: 1px solid var(--line); }
 .installation-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 90px; }
 .section-heading > p.baseline-label { display: inline-flex; flex-direction: column; gap: 4px; margin-top: 27px; font-size: .72rem; }
@@ -194,6 +208,7 @@ h1 span { color: var(--accent); }
   .step-nav strong { font-size: .77rem; }
   .section-space { margin-top: 70px; }
   .feature-grid { gap: 27px; }
+  .shared-grid, .api-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .feature-grid h3 { font-size: 1.08rem; }
   .feature-grid p { font-size: .79rem; }
   .installation-grid { grid-template-columns: 1fr; gap: 35px; }
@@ -201,10 +216,10 @@ h1 span { color: var(--accent); }
 }
 @media (max-width: 520px) {
   .shell { width: calc(100% - 40px); }
-  .site-header { min-height: 86px; gap: 18px; }
+  .site-header { min-height: 86px; gap: 16px; flex-direction: column; align-items: flex-start; padding-block: 18px; }
   .wordmark { font-size: 1.65rem; }
-  .header-nav { gap: 0; font-size: .7rem; }
-  .header-nav a:not(:last-child) { display: none; }
+  .header-nav { gap: 10px 18px; font-size: .73rem; flex-wrap: wrap; }
+  .header-nav a:nth-child(n) { display: inline; }
   .header-nav a span { display: none; }
   .intro { padding-top: 34px; }
   .intro .eyebrow { gap: 8px; font-size: .63rem; }
