@@ -53,7 +53,7 @@
           </div>
         </fieldset>
       </div>
-      <p class="walkthrough-note">Current owner and OIDC screens · synthetic example data. SAML examples show the earlier interface.</p>
+      <p class="walkthrough-note">Current owner and customer screens · synthetic example data.</p>
 
       <nav class="step-nav" aria-label="Walkthrough steps">
         <ol>
@@ -93,9 +93,9 @@
             <div data-protocol="saml">
               <p>Open the invitation and import the customer's SAML metadata, or enter its entity ID, sign-on URL and signing certificate.</p>
               <p>Choose a stable NameID or released identity attribute. Once the draft is saved, register its exact ACS URL or import the generated service-provider metadata.</p>
-              <a class="text-link supporting-link" href="assets/19-saml-exact-registration.jpg" data-enlarge data-caption="SAML wizard — exact ACS and service-provider registration" target="_blank" rel="noopener">See the SAML registration screen <span aria-hidden="true">↗</span></a>
+              <a class="text-link supporting-link" href="assets/2026-10-31-saml-registration.png" data-enlarge data-caption="SAML wizard — exact ACS and service-provider registration" target="_blank" rel="noopener">See the SAML registration screen <span aria-hidden="true">↗</span></a>
             </div>
-            <aside class="stage-aside"><strong>Mappings start with useful defaults.</strong> Profile rules prefill incoming username, email and name sources. The recipient can edit sources the profile allows. Required and locked rules remain enforced; the stable account ID is a separate choice.</aside>
+            <aside class="stage-aside"><strong>Mappings start with useful defaults.</strong> Profiles prefill source claim or attribute names; the provider supplies their values. Recipients can edit permitted sources and omit optional mappings. Required and locked rules stay enforced. The stable account ID is separate; native OIDC profile imports still apply.</aside>
             <p class="stage-takeaway">The wizard saves a hidden draft before testing.</p>
           </div>
           <div class="protocol-screens">
@@ -105,9 +105,9 @@
               <figcaption>Actual customer interface · OIDC configuration</figcaption>
             </figure>
             <figure class="product-screen" data-protocol="saml">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML configuration</span><a href="assets/17-saml-configuration.jpg" class="enlarge-link" data-enlarge data-caption="SAML wizard — metadata and provider configuration" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/17-saml-configuration.jpg" width="1440" height="1793" alt="The customer SAML configuration page showing metadata import and identity-provider fields with certificate content masked." loading="lazy"></div>
-              <figcaption>SAML configuration · earlier interface, 26 October 2026</figcaption>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML configuration</span><a href="assets/2026-10-31-saml-configuration.png" class="enlarge-link" data-enlarge data-caption="SAML wizard — metadata and provider configuration" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/2026-10-31-saml-configuration.png" width="1265" height="1828" alt="The current customer SAML configuration form with metadata import and example identity-provider details." loading="lazy"></div>
+              <figcaption>Actual customer interface · SAML configuration</figcaption>
             </figure>
           </div>
         </article>
@@ -129,9 +129,9 @@
               <figcaption>Two successful sign-in tests · OIDC</figcaption>
             </figure>
             <figure class="product-screen" data-protocol="saml">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML test results</span><a href="assets/20-saml-two-tests.jpg" class="enlarge-link" data-enlarge data-caption="SAML wizard — two successful sign-in tests" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/20-saml-two-tests.jpg" width="1440" height="1827" alt="SAML test results showing two successful sign-ins and confirmation of the same stable identity." loading="lazy"></div>
-              <figcaption>SAML sign-in tests · earlier interface, 26 October 2026</figcaption>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML test results</span><a href="assets/2026-10-31-saml-two-tests.png" class="enlarge-link" data-enlarge data-caption="SAML wizard — two successful sign-in tests" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/2026-10-31-saml-two-tests.png" width="1265" height="1730" alt="Two successful SAML sign-in tests confirming that the provider returned the same stable account ID." loading="lazy"></div>
+              <figcaption>Two successful sign-in tests · SAML</figcaption>
             </figure>
           </div>
         </article>
@@ -152,9 +152,9 @@
               <figcaption>Actual activation screen · OIDC connection</figcaption>
             </figure>
             <figure class="product-screen" data-protocol="saml">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML activation</span><a href="assets/21-saml-complete.jpg" class="enlarge-link" data-enlarge data-caption="SAML wizard — connection activated" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/21-saml-complete.jpg" width="1440" height="1050" alt="The completed SAML wizard confirming that the connection has been activated." loading="lazy"></div>
-              <figcaption>SAML activation · earlier interface, 26 October 2026</figcaption>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML activation</span><a href="assets/2026-10-31-saml-complete.png" class="enlarge-link" data-enlarge data-caption="SAML wizard — connection activated" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/2026-10-31-saml-complete.png" width="1280" height="720" alt="The completed setup confirming that the SAML connection is active." loading="lazy"></div>
+              <figcaption>Actual activation screen · SAML connection</figcaption>
             </figure>
           </div>
         </article>
@@ -173,9 +173,10 @@
       <div class="section-heading"><p class="eyebrow">Delegate the setup, keep the control</p><h2 id="features-heading">A useful layer around<br>the platform you already run.</h2><p>The extension handles the setup journey. Native Keycloak handles identity.</p></div>
       <div class="feature-grid">
         <article><span class="feature-index" aria-hidden="true">01 / SCOPE</span><h3>Choose who shares the connection.</h3><p>Pick one or more organizations, a protocol and an expiry. A realm connection needs no organization. Revoke an unused invitation.</p></article>
-        <article><span class="feature-index" aria-hidden="true">02 / PROFILES</span><h3>Reuse the rules you need.</h3><p>Profiles set invitation rules and mapping defaults. Choose one during setup, use the configured default, or keep standard rules when no default is set.</p></article>
+        <article><span class="feature-index" aria-hidden="true">02 / PROFILES</span><h3>Reuse the rules you need.</h3><p>Profiles set invitation rules and mapping defaults. New links snapshot the selected profile; changing the realm’s default affects future links. Without a default, standard rules apply.</p></article>
         <article><span class="feature-index" aria-hidden="true">03 / UPDATES</span><h3>Keep an existing connection current.</h3><p>Issue a link for credential replacement or changes allowed by a profile. The customer updates that connection; its organization associations stay in place.</p></article>
       </div>
+      <p class="settings-note"><strong>Profiles &amp; settings</strong> separates reusable <strong>Profiles</strong> from <strong>Realm settings</strong>. Native organization tasks live in <strong>Organization tools</strong>.</p>
       <div class="ownership-note"><span class="ownership-mark" aria-hidden="true">↳</span><p><strong>Still your Keycloak.</strong> Native accounts, sessions, brokering and access policies stay with the host platform. The extension stays focused on SSO setup and maintenance.</p></div>
     </section>
 
@@ -227,9 +228,17 @@ Content-Type: application/json</code></pre>
           <p>Use the connection’s immutable ID, not its name. Omit organization fields: the server derives and checks all its existing associations.</p>
         </article>
       </div>
+      <div class="api-values" aria-labelledby="api-values-heading">
+        <h3 id="api-values-heading">Accepted values</h3>
+        <dl>
+          <div><dt><code>purpose</code></dt><dd><code>CREATE</code> (default): a new connection. <code>ROTATE_CREDENTIALS</code>: credentials only. <code>MAINTAIN</code>: changes permitted by a profile.</dd></div>
+          <div><dt><code>allowedProviderTypes</code></dt><dd>An array containing <code>"oidc"</code>, <code>"saml"</code> or both. Use these exact lowercase values; purpose values are uppercase.</dd></div>
+        </dl>
+        <a class="text-link supporting-link" href="#api-options">Optional fields and a full example <span aria-hidden="true">↓</span></a>
+      </div>
       <p class="api-outcome"><strong>The response contains a setup URL.</strong> Send it privately to the customer administrator. The API issues the invitation; the customer supplies settings and completes the wizard.</p>
-      <details class="api-more">
-        <summary>With optional settings</summary>
+      <details class="api-more" id="api-options">
+        <summary>Optional fields and a full example</summary>
         <pre class="api-code"><code>{
   "purpose": "CREATE",
   "organizationId": "&lt;org-id&gt;",
@@ -240,8 +249,14 @@ Content-Type: application/json</code></pre>
   "profileRevision": 1,
   "allowedDomains": ["acme.example"]
 }</code></pre>
-        <p>Domain entries must already belong to that organization. For a shared connection, replace <code>organizationId</code> with <code>organizationIds</code> and omit <code>allowedDomains</code>.</p>
-        <p>Omit the profile fields to use the configured default or standard rules. An explicit revision must be the profile’s latest enabled revision. These settings can narrow its rules, never weaken them.</p>
+        <dl class="api-fields">
+          <div><dt><code>expirationSeconds</code></dt><dd>Integer lifetime in seconds, within the profile’s limit. Omit for the configured default.</dd></div>
+          <div><dt><code>requireTwoSuccessfulTests</code></dt><dd>Boolean. <code>true</code> requires two matching sign-ins; it cannot weaken a profile’s requirement.</dd></div>
+          <div><dt><code>profileId</code> / <code>profileRevision</code></dt><dd>Select an enabled profile and optionally its latest enabled revision. Omit both for the configured default or standard rules.</dd></div>
+          <div><dt><code>allowedDomains</code></dt><dd>Array of domains already configured on the single selected organization. Omit for shared connections.</dd></div>
+        </dl>
+        <p>For a shared connection, replace <code>organizationId</code> with <code>organizationIds</code> and omit <code>allowedDomains</code>.</p>
+        <p>Optional settings can narrow the profile’s rules, never weaken them.</p>
       </details>
       <details class="api-more">
         <summary>Find IDs and other actions</summary>
