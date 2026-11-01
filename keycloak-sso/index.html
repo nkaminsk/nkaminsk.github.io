@@ -69,14 +69,14 @@
           <div class="stage-copy">
             <p class="role-label"><span aria-hidden="true">●</span> Existing Keycloak owner</p>
             <h3 id="invite-heading">Start with a scoped invitation.</h3>
-            <p>Sign in with your existing Keycloak administrator account. Check one or more organizations for the connection, or choose a realm connection without an organization.</p>
+            <p>Sign in with your existing Keycloak administrator account. Check one or more organizations, or choose <strong>Realm Connection (no orgs)</strong>. Organizations need no configured domains.</p>
             <p>Set the allowed protocol, expiry and testing policy. Share the generated link with the customer's identity-provider administrator.</p>
             <aside class="stage-aside"><strong>Your backend can do this too.</strong> Issue setup links through the REST API using an authorized Keycloak service account.</aside>
             <p class="stage-takeaway">One invitation creates one connection, shared by every selected organization.</p>
           </div>
           <figure class="product-screen">
-            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Two organizations, one connection</span><a href="assets/2026-10-31-create-shared-link.png" class="enlarge-link" data-enlarge data-caption="Create a setup link for two organizations" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-            <div class="screen-scroll"><img src="assets/2026-10-31-create-shared-link.png" width="1474" height="1244" alt="Create setup link with two organizations checked in the visible Organizations selection." fetchpriority="high"></div>
+            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Two organizations, one connection</span><a href="assets/2026-10-31-create-shared-link-v2.png" class="enlarge-link" data-enlarge data-caption="Create a setup link for two organizations" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+            <div class="screen-scroll"><img src="assets/2026-10-31-create-shared-link-v2.png" width="1280" height="720" alt="Create setup link with both selected organizations kept above the searchable, paged results." fetchpriority="high"></div>
             <figcaption>SSO Setup Links · one shared connection for two organizations</figcaption>
           </figure>
         </article>
@@ -172,12 +172,13 @@
     <section class="control-section shell section-space" id="features" aria-labelledby="features-heading">
       <div class="section-heading"><p class="eyebrow">Delegate the setup, keep the control</p><h2 id="features-heading">A useful layer around<br>the platform you already run.</h2><p>The extension handles the setup journey. Native Keycloak handles identity.</p></div>
       <div class="feature-grid">
-        <article><span class="feature-index" aria-hidden="true">01 / SCOPE</span><h3>Choose who shares the connection.</h3><p>Pick one or more organizations, a protocol and an expiry. A realm connection needs no organization. Revoke an unused invitation.</p></article>
+        <article><span class="feature-index" aria-hidden="true">01 / SCOPE</span><h3>Choose who shares the connection.</h3><p>Search organizations by name or alias in pages of 20; selections stay visible across pages. Select up to 50 organizations per plugin request, or use a realm connection. This does not limit the organizations in Keycloak.</p></article>
         <article><span class="feature-index" aria-hidden="true">02 / PROFILES</span><h3>Reuse the rules you need.</h3><p>Profiles set invitation rules and mapping defaults. New links snapshot the selected profile; changing the realm’s default affects future links. Without a default, standard rules apply.</p></article>
         <article><span class="feature-index" aria-hidden="true">03 / UPDATES</span><h3>Keep an existing connection current.</h3><p>Issue a link for credential replacement or changes allowed by a profile. The customer updates that connection; its organization associations stay in place.</p></article>
       </div>
-      <p class="settings-note"><strong>Profiles &amp; settings</strong> separates reusable <strong>Profiles</strong> from <strong>Realm settings</strong>. Native organization tasks live in <strong>Organization tools</strong>.</p>
-      <div class="ownership-note"><span class="ownership-mark" aria-hidden="true">↳</span><p><strong>Still your Keycloak.</strong> Native accounts, sessions, brokering and access policies stay with the host platform. The extension stays focused on SSO setup and maintenance.</p></div>
+      <p class="settings-note"><strong>Profiles &amp; settings</strong> contains <strong>Profiles</strong>, <strong>Realm settings</strong> and single-organization <strong>Notification history</strong>. Realm settings starts with <strong>Default profile</strong>. <strong>Optional realm settings</strong> holds after-setup links and shared notifications; the separate <strong>Deployment information</strong> dropdown below it shows read-only server configuration.</p>
+      <p class="settings-note">Each profile can offer a Return link to your app's SSO settings and a Support link to your helpdesk. Both appear after successful setup or update and require a click. Approved websites are the realm's trust list; profiles can choose different full URLs. Neither link redirects automatically.</p>
+      <div class="ownership-note"><span class="ownership-mark" aria-hidden="true">↳</span><p><strong>Still your Keycloak.</strong> Native accounts, sessions, brokering and advanced organization and sign-in settings stay with the host platform. The extension stays focused on SSO setup and maintenance.</p></div>
     </section>
 
     <section class="shell section-space" id="shared-connections" aria-labelledby="shared-heading">
@@ -196,8 +197,8 @@
           <h3>Create a link to update it.</h3>
           <p>The update affects every organization using the connection. The issuer must have permission for all of them. If its associations change, issue a fresh update link.</p>
           <figure class="product-screen">
-            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Update invitation</span><a href="assets/2026-10-31-update-shared-link.png" class="enlarge-link" data-enlarge data-caption="Update link scoped to every organization using the connection" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-            <div class="screen-scroll"><img src="assets/2026-10-31-update-shared-link.png" width="1474" height="1244" alt="The update invitation form showing the existing shared connection and all affected organizations." loading="lazy"></div>
+            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Update invitation</span><a href="assets/2026-10-31-update-shared-link-v2.png" class="enlarge-link" data-enlarge data-caption="Update link scoped to every organization using the connection" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+            <div class="screen-scroll"><img src="assets/2026-10-31-update-shared-link-v2.png" width="1280" height="720" alt="The update invitation form names both organizations affected by the shared connection update." loading="lazy"></div>
             <figcaption>A new invitation · the same connection and organizations</figcaption>
           </figure>
           <a class="text-link supporting-link" href="assets/2026-10-31-update-fields.png" data-enlarge data-caption="Customer update screen — only permitted changes are available" target="_blank" rel="noopener">See the customer’s update screen <span aria-hidden="true">↗</span></a>
@@ -246,21 +247,19 @@ Content-Type: application/json</code></pre>
   "expirationSeconds": 86400,
   "requireTwoSuccessfulTests": true,
   "profileId": "&lt;profile-id&gt;",
-  "profileRevision": 1,
-  "allowedDomains": ["acme.example"]
+  "profileRevision": 1
 }</code></pre>
         <dl class="api-fields">
           <div><dt><code>expirationSeconds</code></dt><dd>Integer lifetime in seconds, within the profile’s limit. Omit for the configured default.</dd></div>
           <div><dt><code>requireTwoSuccessfulTests</code></dt><dd>Boolean. <code>true</code> requires two matching sign-ins; it cannot weaken a profile’s requirement.</dd></div>
           <div><dt><code>profileId</code> / <code>profileRevision</code></dt><dd>Select an enabled profile and optionally its latest enabled revision. Omit both for the configured default or standard rules.</dd></div>
-          <div><dt><code>allowedDomains</code></dt><dd>Array of domains already configured on the single selected organization. Omit for shared connections.</dd></div>
         </dl>
-        <p>For a shared connection, replace <code>organizationId</code> with <code>organizationIds</code> and omit <code>allowedDomains</code>.</p>
+        <p>For a shared connection, replace <code>organizationId</code> with <code>organizationIds</code>. No organization domain is required.</p>
         <p>Optional settings can narrow the profile’s rules, never weaken them.</p>
       </details>
       <details class="api-more">
         <summary>Find IDs and other actions</summary>
-        <p>Under the API base above, <code>GET /organizations</code> returns organization IDs. <code>GET /connections?organizationId=&lt;org-id&gt;</code> returns connection IDs in <code>items</code>. Discovery respects the caller’s permissions.</p>
+        <p>Under the API base above, <code>GET /organizations?search=acme&amp;first=0&amp;max=20</code> searches organization names and aliases and returns their IDs. Follow pagination for later results. <code>GET /connections?organizationId=&lt;org-id&gt;</code> returns connection IDs in <code>items</code>. Discovery respects the caller’s permissions.</p>
         <p>For broader connection changes, use <code>purpose: "MAINTAIN"</code> with a saved profile that permits the changes and requires two tests.</p>
         <p>To add organizations directly, send <code>{"organizationIds":["&lt;additional-org-id&gt;"]}</code> to <code>POST /connections/&lt;immutable-connection-id&gt;/organizations</code>. This adds native associations without removing existing ones or issuing an invitation.</p>
       </details>
