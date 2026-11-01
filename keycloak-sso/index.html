@@ -69,10 +69,11 @@
           <div class="stage-copy">
             <p class="role-label"><span aria-hidden="true">●</span> Existing Keycloak owner</p>
             <h3 id="invite-heading">Start with a scoped invitation.</h3>
-            <p>Sign in with your existing Keycloak administrator account. Check one or more organizations, or choose <strong>Realm Connection (no orgs)</strong>. Organizations need no configured domains.</p>
-            <p>Set the allowed protocol, expiry and testing policy. Share the generated link with the customer's identity-provider administrator.</p>
+            <p>Sign in with your existing Keycloak administrator account. The master panel opens <strong>Active setup links</strong> across accessible realms, including unexpired invitations waiting to start or in progress. Use <strong>Filter by realm</strong> to create a link or manage connections and settings. A realm workspace starts on <strong>Setup links → Active</strong>.</p>
+            <p>Check one or more organizations, or choose <strong>Realm Connection (no orgs)</strong>. No configured domains are needed. Set the protocol, expiry and testing policy, then share the link with the customer's identity-provider administrator.</p>
             <aside class="stage-aside"><strong>Your backend can do this too.</strong> Issue setup links through the REST API using an authorized Keycloak service account.</aside>
             <p class="stage-takeaway">One invitation creates one connection, shared by every selected organization.</p>
+            <a class="text-link supporting-link" href="assets/2026-10-31-active-links-home.png" data-enlarge data-caption="Active setup links across accessible realms" target="_blank" rel="noopener">See the links home <span aria-hidden="true">↗</span></a>
           </div>
           <figure class="product-screen">
             <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Two organizations, one connection</span><a href="assets/2026-10-31-create-shared-link-v2.png" class="enlarge-link" data-enlarge data-caption="Create a setup link for two organizations" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
@@ -173,11 +174,13 @@
       <div class="section-heading"><p class="eyebrow">Delegate the setup, keep the control</p><h2 id="features-heading">A useful layer around<br>the platform you already run.</h2><p>The extension handles the setup journey. Native Keycloak handles identity.</p></div>
       <div class="feature-grid">
         <article><span class="feature-index" aria-hidden="true">01 / SCOPE</span><h3>Choose who shares the connection.</h3><p>Search organizations by name or alias in pages of 20; selections stay visible across pages. Select up to 50 organizations per plugin request, or use a realm connection. This does not limit the organizations in Keycloak.</p></article>
-        <article><span class="feature-index" aria-hidden="true">02 / PROFILES</span><h3>Reuse the rules you need.</h3><p>Profiles set invitation rules and mapping defaults. New links snapshot the selected profile; changing the realm’s default affects future links. Without a default, standard rules apply.</p></article>
+        <article><span class="feature-index" aria-hidden="true">02 / PROFILES</span><h3>Reuse the rules you need.</h3><p>Profiles save protocols, mappings, lifetime, tests, allowed updates, branding and separate Return/Support URLs. Each new invitation copies the selected revision; profile edits affect future invitations.</p></article>
         <article><span class="feature-index" aria-hidden="true">03 / UPDATES</span><h3>Keep an existing connection current.</h3><p>Issue a link for credential replacement or changes allowed by a profile. The customer updates that connection; its organization associations stay in place.</p></article>
       </div>
-      <p class="settings-note"><strong>Profiles &amp; settings</strong> contains <strong>Profiles</strong>, <strong>Realm settings</strong> and single-organization <strong>Notification history</strong>. Realm settings starts with <strong>Default profile</strong>. <strong>Optional realm settings</strong> holds after-setup links and shared notifications; the separate <strong>Deployment information</strong> dropdown below it shows read-only server configuration.</p>
-      <p class="settings-note">Each profile can offer a Return link to your app's SSO settings and a Support link to your helpdesk. Both appear after successful setup or update and require a click. Approved websites are the realm's trust list; profiles can choose different full URLs. Neither link redirects automatically.</p>
+      <p class="settings-note"><strong>Realm settings</strong> chooses the <strong>Default profile</strong> for future links. <strong>Optional realm settings</strong> holds <strong>Allowed link websites</strong> and the optional shared backend notification; the separate <strong>Deployment information</strong> dropdown below it shows read-only server configuration.</p>
+      <p class="settings-note">Set separate Return and Support URLs in a profile, such as your app's SSO settings and helpdesk. Both appear only after successful setup or update and require a click. <strong>Allowed link websites</strong> approves websites for both actions; one approval can cover different paths. Approvals also apply to existing invitations.</p>
+      <p class="settings-note"><strong>Profiles &amp; settings → Notification history</strong> opens across the current realm, newest event first, including realm connections and retained disabled/deleted organization history. The organization filter is optional; history remains available when native Organizations is off.</p>
+      <a class="text-link supporting-link" href="assets/2026-10-31-after-setup-links.png" data-enlarge data-caption="Optional Return and Support buttons after successful setup or update" target="_blank" rel="noopener">See Return and Support on the success screen <span aria-hidden="true">↗</span></a>
       <div class="ownership-note"><span class="ownership-mark" aria-hidden="true">↳</span><p><strong>Still your Keycloak.</strong> Native accounts, sessions, brokering and advanced organization and sign-in settings stay with the host platform. The extension stays focused on SSO setup and maintenance.</p></div>
     </section>
 
@@ -259,6 +262,7 @@ Content-Type: application/json</code></pre>
       </details>
       <details class="api-more">
         <summary>Find IDs and other actions</summary>
+        <p><code>GET /?activeOnly=true&amp;first=0&amp;max=50</code> under the API base above lists unexpired invitations waiting to start or in progress. Completed, revoked and expired invitations are excluded. The exact <code>status=ACTIVE</code> filter means <strong>Not started</strong> only.</p>
         <p>Under the API base above, <code>GET /organizations?search=acme&amp;first=0&amp;max=20</code> searches organization names and aliases and returns their IDs. Follow pagination for later results. <code>GET /connections?organizationId=&lt;org-id&gt;</code> returns connection IDs in <code>items</code>. Discovery respects the caller’s permissions.</p>
         <p>For broader connection changes, use <code>purpose: "MAINTAIN"</code> with a saved profile that permits the changes and requires two tests.</p>
         <p>To add organizations directly, send <code>{"organizationIds":["&lt;additional-org-id&gt;"]}</code> to <code>POST /connections/&lt;immutable-connection-id&gt;/organizations</code>. This adds native associations without removing existing ones or issuing an invitation.</p>
