@@ -21,7 +21,7 @@
     </a>
     <nav class="header-nav" aria-label="Page navigation">
       <a href="#walkthrough">Walkthrough</a>
-      <a href="#shared-connections">Shared connections</a>
+      <a href="#owner-workspace">Owner workspace</a>
       <a href="#api">API</a>
       <a href="#installation">Installation</a>
     </nav>
@@ -69,15 +69,15 @@
           <div class="stage-copy">
             <p class="role-label"><span aria-hidden="true">●</span> Existing Keycloak owner</p>
             <h3 id="invite-heading">Start with a scoped invitation.</h3>
-            <p>Sign in with your existing Keycloak administrator account. The master panel opens <strong>Active setup links</strong> across accessible realms, including unexpired invitations waiting to start or in progress. Use <strong>Filter by realm</strong> to create a link or manage connections and settings. A realm workspace starts on <strong>Setup links → Active</strong>.</p>
+            <p>Sign in with your existing Keycloak administrator account. <strong>Links</strong> opens with active setup links across accessible realms: unexpired invitations waiting to start or in progress. Search the paged <strong>Realm</strong> and <strong>Organization</strong> filters to narrow the list, then choose the realm for a new link.</p>
             <p>Check one or more organizations, or choose <strong>Realm Connection (no orgs)</strong>. No configured domains are needed. Set the protocol, expiry and testing policy, then share the link with the customer's identity-provider administrator.</p>
             <aside class="stage-aside"><strong>Your backend can do this too.</strong> Issue setup links through the REST API using an authorized Keycloak service account.</aside>
             <p class="stage-takeaway">One invitation creates one connection, shared by every selected organization.</p>
-            <a class="text-link supporting-link" href="assets/2026-10-31-active-links-home.png" data-enlarge data-caption="Active setup links across accessible realms" target="_blank" rel="noopener">See the links home <span aria-hidden="true">↗</span></a>
+            <a class="text-link supporting-link" href="assets/links-workspace-current.jpg" data-enlarge data-caption="Links workspace — active setup links across accessible realms" target="_blank" rel="noopener">See the links home <span aria-hidden="true">↗</span></a>
           </div>
           <figure class="product-screen">
-            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Two organizations, one connection</span><a href="assets/2026-10-31-create-shared-link-v2.png" class="enlarge-link" data-enlarge data-caption="Create a setup link for two organizations" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-            <div class="screen-scroll"><img src="assets/2026-10-31-create-shared-link-v2.png" width="1280" height="720" alt="Create setup link with both selected organizations kept above the searchable, paged results." fetchpriority="high"></div>
+            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Two organizations, one connection</span><a href="assets/create-shared-link-current.jpg" class="enlarge-link" data-enlarge data-caption="Create a setup link for two organizations" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+            <div class="screen-scroll"><img src="assets/create-shared-link-current.jpg" width="1280" height="720" alt="Create setup link with both selected organizations kept above the searchable, paged results." fetchpriority="high"></div>
             <figcaption>SSO Setup Links · one shared connection for two organizations</figcaption>
           </figure>
         </article>
@@ -142,8 +142,8 @@
             <p class="role-label"><span aria-hidden="true">●</span> Customer's IdP administrator</p>
             <h3 id="activate-heading">Put the connection into service.</h3>
             <p>Review the configuration and activate while the required test results are current. The draft becomes a native Keycloak identity provider.</p>
-            <p>The saved connection appears under every organization selected in the invitation. Your team can then verify an ordinary application sign-in.</p>
-            <aside class="stage-aside"><strong>Update the same connection later.</strong> Create another invitation from its connection row. Its existing organizations stay attached.</aside>
+            <p>The saved connection keeps every organization selected in the invitation. Your team can then verify an ordinary application sign-in. Optional <strong>Support</strong> and <strong>Return</strong> actions appear after successful activation, so the customer can open help or go back to your application.</p>
+            <aside class="stage-aside"><strong>Update the same connection later.</strong> Open <strong>Connections</strong> and choose <strong>Create update link</strong> on its row. Its existing organizations stay attached.</aside>
             <p class="stage-takeaway">Keycloak continues to own users, sessions and access decisions.</p>
           </div>
           <div class="protocol-screens">
@@ -174,40 +174,71 @@
       <div class="section-heading"><p class="eyebrow">Delegate the setup, keep the control</p><h2 id="features-heading">A useful layer around<br>the platform you already run.</h2><p>The extension handles the setup journey. Native Keycloak handles identity.</p></div>
       <div class="feature-grid">
         <article><span class="feature-index" aria-hidden="true">01 / SCOPE</span><h3>Choose who shares the connection.</h3><p>Search organizations by name or alias in pages of 20; selections stay visible across pages. Select up to 50 organizations per plugin request, or use a realm connection. This does not limit the organizations in Keycloak.</p></article>
-        <article><span class="feature-index" aria-hidden="true">02 / PROFILES</span><h3>Reuse the rules you need.</h3><p>Profiles save protocols, mappings, lifetime, tests, allowed updates, branding and separate Return/Support URLs. Each new invitation copies the selected revision; profile edits affect future invitations.</p></article>
+        <article><span class="feature-index" aria-hidden="true">02 / PROFILES</span><h3>Reuse the rules you need.</h3><p>Profiles save protocols, mappings, lifetime, tests, allowed updates and branding. Optional Support and Return URLs can inherit your settings or use profile-specific values. Each new invitation copies its rules; profile edits affect future invitations.</p></article>
         <article><span class="feature-index" aria-hidden="true">03 / UPDATES</span><h3>Keep an existing connection current.</h3><p>Issue a link for credential replacement or changes allowed by a profile. The customer updates that connection; its organization associations stay in place.</p></article>
       </div>
-      <p class="settings-note"><strong>Realm settings</strong> chooses the <strong>Default profile</strong> for future links. <strong>Optional realm settings</strong> holds <strong>Allowed link websites</strong> and the optional shared backend notification; the separate <strong>Deployment information</strong> dropdown below it shows read-only server configuration.</p>
-      <p class="settings-note">Set separate Return and Support URLs in a profile, such as your app's SSO settings and helpdesk. Both appear only after successful setup or update and require a click. <strong>Allowed link websites</strong> approves websites for both actions; one approval can cover different paths. Approvals also apply to existing invitations.</p>
-      <p class="settings-note"><strong>Profiles &amp; settings → Notification history</strong> opens across the current realm, newest event first, including realm connections and retained disabled/deleted organization history. The organization filter is optional; history remains available when native Organizations is off.</p>
+      <p class="settings-note"><strong>Instance settings</strong> supplies shared defaults. <strong>Realm settings</strong> chooses defaults for one realm, including its <strong>Default profile</strong> and optional backend notification. The separate <strong>Deployment information</strong> dropdown shows read-only server configuration.</p>
+      <p class="settings-note">Configure optional full HTTPS <strong>Support URL</strong> and <strong>Return URL</strong> values once under <strong>After-setup links</strong> in Instance settings. Realms inherit each value unless they override it; an explicit profile URL takes precedence. New invitations save the resolved URLs, so later settings edits affect future links. An existing invitation’s button may disappear if you remove its website from your settings.</p>
+      <p class="settings-note"><strong>Activity</strong> shows setup history across accessible realms. Use its paged realm and organization filters to narrow the list, including realm connections and retained history for disabled or deleted organizations.</p>
       <a class="text-link supporting-link" href="assets/2026-10-31-after-setup-links.png" data-enlarge data-caption="Optional Return and Support buttons after successful setup or update" target="_blank" rel="noopener">See Return and Support on the success screen <span aria-hidden="true">↗</span></a>
       <div class="ownership-note"><span class="ownership-mark" aria-hidden="true">↳</span><p><strong>Still your Keycloak.</strong> Native accounts, sessions, brokering and advanced organization and sign-in settings stay with the host platform. The extension stays focused on SSO setup and maintenance.</p></div>
     </section>
 
+    <section class="shell section-space" id="owner-workspace" aria-labelledby="workspace-heading">
+      <div class="section-heading"><p class="eyebrow">A focused owner workspace</p><h2 id="workspace-heading">Start with links.<br>Keep the context in view.</h2><p>Links, Connections, Activity, Profiles and Settings have their own navigation entries. Realm and organization filters narrow the workspace without an organization browser.</p></div>
+      <div class="workspace-overview">
+        <div class="workspace-copy"><h3>Active invitations, together.</h3><p>The Links home brings together invitations across accessible realms. Search the paged filters by name or ID, inspect progress with <strong>View</strong>, or create a new setup link.</p><p>A selected realm stays selected when you switch between <strong>Instance profiles</strong> and <strong>Realm profiles</strong>, or between <strong>Instance settings</strong> and <strong>Realm settings</strong>.</p><a class="text-link supporting-link" href="#profiles-settings">Explore profiles and settings <span aria-hidden="true">↓</span></a></div>
+        <figure class="product-screen">
+          <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Links</span><a href="assets/links-workspace-current.jpg" class="enlarge-link" data-enlarge data-caption="Links workspace — active setup links across accessible realms" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+          <div class="screen-scroll"><img src="assets/links-workspace-current.jpg" width="1265" height="1325" alt="Links workspace showing active invitations, realm and organization filters, and navigation to Connections, Activity, Profiles and Settings." loading="lazy"></div>
+          <figcaption>Links home · one list across accessible realms</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section class="shell section-space" id="shared-connections" aria-labelledby="shared-heading">
-      <div class="section-heading"><p class="eyebrow">Organizations and connections</p><h2 id="shared-heading">One connection.<br>Several organizations.</h2><p>Check both organizations when creating the link. After activation, each organization shows the same saved connection. Add more later with <strong>Add organizations</strong>.</p></div>
+      <div class="section-heading"><p class="eyebrow">Organizations and connections</p><h2 id="shared-heading">One connection.<br>Several organizations.</h2><p>Check both organizations when creating the link. After activation, one saved connection keeps both native organization associations.</p></div>
       <div class="shared-grid">
         <div>
-          <h3>Find it under either organization.</h3>
-          <p>These are associations to one connection. Native Keycloak membership and sign-in rules still apply.</p>
+          <h3>Find it directly in Connections.</h3>
+          <p>A flat list shows connections across accessible realms, including realm connections with no organizations. Search the paged <strong>Realm</strong> and <strong>Organization</strong> filters to narrow it. Each row keeps the realm and associated organizations visible.</p>
           <figure class="product-screen">
-            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Shared connection</span><a href="assets/2026-10-31-shared-connections.png" class="enlarge-link" data-enlarge data-caption="One saved connection shared by two organizations" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-            <div class="screen-scroll"><img src="assets/2026-10-31-shared-connections.png" width="1474" height="1244" alt="The owner connection list showing one saved connection associated with two organizations." loading="lazy"></div>
-            <figcaption>One connection · multiple native organization associations</figcaption>
+            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Connections</span><a href="assets/connections-workspace-current.jpg" class="enlarge-link" data-enlarge data-caption="Connections workspace — flat list with realm and organization filters" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+            <div class="screen-scroll"><img src="assets/connections-workspace-current.jpg" width="1265" height="1666" alt="Flat Connections list with realm and organization filters, visible organization associations, and a Create update link action on each permitted row." loading="lazy"></div>
+            <figcaption>Connections · accessible realms, visible associations, direct update actions</figcaption>
           </figure>
         </div>
         <div>
           <h3>Create a link to update it.</h3>
-          <p>The update affects every organization using the connection. The issuer must have permission for all of them. If its associations change, issue a fresh update link.</p>
+          <p>Choose <strong>Create update link</strong> on the connection row. The update affects every organization using it, and the issuer must have permission for all of them. If its associations change, issue a fresh update link. Native Keycloak membership and sign-in rules still apply.</p>
           <figure class="product-screen">
-            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Update invitation</span><a href="assets/2026-10-31-update-shared-link-v2.png" class="enlarge-link" data-enlarge data-caption="Update link scoped to every organization using the connection" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-            <div class="screen-scroll"><img src="assets/2026-10-31-update-shared-link-v2.png" width="1280" height="720" alt="The update invitation form names both organizations affected by the shared connection update." loading="lazy"></div>
+            <div class="screen-toolbar"><span>Owner panel <span aria-hidden="true">/</span> Update invitation</span><a href="assets/update-shared-link-current.jpg" class="enlarge-link" data-enlarge data-caption="Update link scoped to every organization using the connection" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+            <div class="screen-scroll"><img src="assets/update-shared-link-current.jpg" width="1280" height="720" alt="The update invitation form names both organizations affected by the shared connection update." loading="lazy"></div>
             <figcaption>A new invitation · the same connection and organizations</figcaption>
           </figure>
           <a class="text-link supporting-link" href="assets/2026-10-31-update-fields.png" data-enlarge data-caption="Customer update screen — only permitted changes are available" target="_blank" rel="noopener">See the customer’s update screen <span aria-hidden="true">↗</span></a>
           <a class="text-link supporting-link" href="assets/2026-10-31-update-complete.png" data-enlarge data-caption="The tested update is active for both organizations" target="_blank" rel="noopener">See the completed update <span aria-hidden="true">↗</span></a>
         </div>
       </div>
+    </section>
+
+    <section class="shell section-space" id="profiles-settings" aria-labelledby="profiles-settings-heading">
+      <div class="section-heading"><p class="eyebrow">Reusable rules and defaults</p><h2 id="profiles-settings-heading">Choose the scope.<br>Keep the chosen realm.</h2><p>Named Instance and Realm switches make the scope explicit. Instance scope requires instance administrator access; switching scope preserves the selected realm.</p></div>
+      <div class="workspace-grid">
+        <article id="instance-profiles"><h3>Instance profiles</h3><p>Save shared setup rules for use across realms. A link still targets one realm and its authorized organizations.</p>
+          <figure class="product-screen"><div class="screen-toolbar"><span>Profiles <span aria-hidden="true">/</span> Instance profiles</span><a href="assets/instance-profiles-current.jpg" class="enlarge-link" data-enlarge data-caption="Profiles — Instance profiles with the explicit scope switch" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div><div class="screen-scroll"><img src="assets/instance-profiles-current.jpg" width="1265" height="881" alt="Profiles workspace with Instance profiles selected and a separate Realm profiles switch." loading="lazy"></div><figcaption>Shared profiles · instance administrator scope</figcaption></figure>
+        </article>
+        <article id="realm-profiles"><h3>Realm profiles</h3><p>Manage setup rules for the chosen realm. Switch back from Instance profiles with the same realm ready to use.</p>
+          <figure class="product-screen"><div class="screen-toolbar"><span>Profiles <span aria-hidden="true">/</span> Realm profiles</span><a href="assets/realm-profiles-current.jpg" class="enlarge-link" data-enlarge data-caption="Profiles — Realm profiles with the selected realm preserved" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div><div class="screen-scroll"><img src="assets/realm-profiles-current.jpg" width="1265" height="1162" alt="Profiles workspace with Realm profiles selected and the chosen realm visible beside the scope controls." loading="lazy"></div><figcaption>Realm profiles · rules for the chosen realm</figcaption></figure>
+        </article>
+        <article id="instance-settings"><h3>Instance settings</h3><p>Set shared defaults once. Under <strong>After-setup links</strong>, enter an optional full HTTPS <strong>Support URL</strong> for help and <strong>Return URL</strong> for your application. Each realm inherits both values.</p>
+          <figure class="product-screen"><div class="screen-toolbar"><span>Settings <span aria-hidden="true">/</span> Instance settings</span><a href="assets/instance-settings-current.jpg" class="enlarge-link" data-enlarge data-caption="Settings — Instance defaults and optional after-setup URLs" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div><div class="screen-scroll"><img src="assets/instance-settings-current.jpg" width="1265" height="1142" alt="Instance settings with optional Support URL and Return URL fields under After-setup links." loading="lazy"></div><figcaption>Instance defaults · configure the actual destination URLs</figcaption></figure>
+        </article>
+        <article id="realm-settings"><h3>Realm settings</h3><p>Leave a URL blank to inherit its instance value, or override either field for this realm. An explicit profile URL wins. Both optional actions appear after successful setup or update and open only when clicked.</p>
+          <figure class="product-screen"><div class="screen-toolbar"><span>Settings <span aria-hidden="true">/</span> Realm settings</span><a href="assets/realm-settings-current.jpg" class="enlarge-link" data-enlarge data-caption="Settings — Realm URL overrides and inherited instance defaults" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div><div class="screen-scroll"><img src="assets/realm-settings-current.jpg" width="1265" height="2214" alt="Realm settings showing separate Support URL and Return URL overrides with inherited instance defaults." loading="lazy"></div><figcaption>Realm overrides · each URL inherits independently</figcaption></figure>
+        </article>
+      </div>
+      <p class="settings-note">Resolved completion URLs are saved into each new invitation, including links without a profile. Existing invitations keep their saved URLs.</p>
     </section>
 
     <section class="shell section-space" id="api" aria-labelledby="api-heading">
@@ -235,8 +266,8 @@ Content-Type: application/json</code></pre>
       <div class="api-values" aria-labelledby="api-values-heading">
         <h3 id="api-values-heading">Accepted values</h3>
         <dl>
-          <div><dt><code>purpose</code></dt><dd><code>CREATE</code> (default): a new connection. <code>ROTATE_CREDENTIALS</code>: credentials only. <code>MAINTAIN</code>: changes permitted by a profile.</dd></div>
-          <div><dt><code>allowedProviderTypes</code></dt><dd>An array containing <code>"oidc"</code>, <code>"saml"</code> or both. Use these exact lowercase values; purpose values are uppercase.</dd></div>
+          <div><dt><code>purpose</code></dt><dd><ul class="api-enum-list"><li><code>CREATE</code> <span>(default) — create a new connection.</span></li><li><code>ROTATE_CREDENTIALS</code> <span>Replace credentials only.</span></li><li><code>MAINTAIN</code> <span>Make changes permitted by a profile.</span></li></ul></dd></div>
+          <div><dt><code>allowedProviderTypes</code></dt><dd><p class="api-enum-intro">An array containing either or both of these exact lowercase values:</p><ul class="api-enum-list"><li><code>"oidc"</code> <span>OpenID Connect.</span></li><li><code>"saml"</code> <span>SAML.</span></li></ul></dd></div>
         </dl>
         <a class="text-link supporting-link" href="#api-options">Optional fields and a full example <span aria-hidden="true">↓</span></a>
       </div>
@@ -286,7 +317,7 @@ Content-Type: application/json</code></pre>
 
   </main>
 
-  <footer class="site-footer shell"><div><span class="footer-wordmark">SSO Setup Links</span><p>A Keycloak extension by illimité.</p></div><p>Development preview · 31 October 2026<br>Real interfaces. Example data.</p></footer>
+  <footer class="site-footer shell"><div><span class="footer-wordmark">SSO Setup Links</span><p>A Keycloak extension by illimité.</p></div><p>Development preview · 1 November 2026<br>Real interfaces. Example data.</p></footer>
 
   <dialog class="image-dialog" aria-labelledby="image-dialog-title" data-image-dialog>
     <div class="dialog-toolbar"><h2 id="image-dialog-title">Product screenshot</h2><button class="button button-secondary" type="button" data-close-image autofocus>Close <span aria-hidden="true">×</span></button></div>
