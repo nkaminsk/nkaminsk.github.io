@@ -9,8 +9,8 @@
   <title>SSO Setup Links for Keycloak</title>
   <link rel="canonical" href="https://nkaminsk.dev/keycloak-sso/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script src="walkthrough.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261101-flow">
+  <script src="walkthrough.js?v=20261101-flow" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -43,7 +43,7 @@
       <div class="section-topline">
         <div>
           <p class="eyebrow">The setup journey</p>
-          <h2 id="walkthrough-heading">Four steps. A clear handoff.</h2>
+          <h2 id="walkthrough-heading">A clear handoff. A guided setup.</h2>
         </div>
         <fieldset class="protocol-choice" data-protocol-controls hidden>
           <legend>Explore a protocol</legend>
@@ -53,14 +53,16 @@
           </div>
         </fieldset>
       </div>
-      <p class="walkthrough-note">Current owner and customer screens · synthetic example data.</p>
+      <p class="walkthrough-note">Customer flow: Create application → Configure connection → Map claims → Test sign-in. Current screens with synthetic local example data.</p>
 
       <nav class="step-nav" aria-label="Walkthrough steps">
         <ol>
           <li><a href="#invite" data-step-select="invite"><span class="step-number">01</span><span><small>Owner</small><strong>Invite</strong></span></a></li>
-          <li><a href="#configure" data-step-select="configure"><span class="step-number">02</span><span><small>Customer</small><strong>Configure</strong></span></a></li>
-          <li><a href="#test" data-step-select="test"><span class="step-number">03</span><span><small>Customer</small><strong>Test twice</strong></span></a></li>
-          <li><a href="#activate" data-step-select="activate"><span class="step-number">04</span><span><small>Customer</small><strong>Activate</strong></span></a></li>
+          <li><a href="#register" data-step-select="register"><span class="step-number">02</span><span><small>Customer</small><strong>Create app</strong></span></a></li>
+          <li><a href="#configure" data-step-select="configure"><span class="step-number">03</span><span><small>Customer</small><strong>Configure</strong></span></a></li>
+          <li><a href="#mappings" data-step-select="mappings"><span class="step-number">04</span><span><small>Customer</small><strong>Map claims</strong></span></a></li>
+          <li><a href="#test" data-step-select="test"><span class="step-number">05</span><span><small>Customer</small><strong>Test &amp; activate</strong></span></a></li>
+          <li><a href="#activate" data-step-select="activate"><span class="step-number">06</span><span><small>Result</small><strong>Ready</strong></span></a></li>
         </ol>
       </nav>
 
@@ -82,34 +84,60 @@
           </figure>
         </article>
 
+        <article class="walkthrough-step" id="register" data-step="register" aria-labelledby="register-heading">
+          <div class="stage-copy">
+            <p class="role-label"><span aria-hidden="true">●</span> Customer's IdP administrator · screen 1 of 4</p>
+            <h3 id="register-heading">Create the application at your provider.</h3>
+            <div data-protocol="oidc"><p>Copy the exact <strong>Redirect URI / callback URL</strong> into a confidential OIDC application at your provider. Use Authorization Code; Keycloak exchanges the code on the server.</p><p>Save the application and keep its client ID and credential ready for the next screen.</p></div>
+            <div data-protocol="saml"><p>Copy both the <strong>Assertion consumer service (ACS) URL</strong> and <strong>SP entity ID / Audience URI</strong> into a SAML application at your provider.</p><p>Both values are available before you enter the provider configuration. Keep its metadata URL ready for the next screen.</p></div>
+            <aside class="stage-aside"><strong>Register the exact values.</strong> The callback belongs to this connection. A realm address alone does not replace it.</aside>
+          </div>
+          <div class="protocol-screens">
+            <figure class="product-screen" data-protocol="oidc"><div class="screen-toolbar"><span>Customer wizard / Create application</span><a href="assets/oidc-registration-current.jpg" class="enlarge-link" data-enlarge data-caption="OIDC — register the exact callback first" target="_blank" rel="noopener">View full screenshot ↗</a></div><div class="screen-scroll"><img src="assets/oidc-registration-current.jpg" width="1265" height="824" alt="OIDC Create application screen showing the exact redirect URI before credentials are entered." loading="lazy"></div><figcaption>OIDC · exact application callback</figcaption></figure>
+            <figure class="product-screen" data-protocol="saml"><div class="screen-toolbar"><span>Customer wizard / Create application</span><a href="assets/saml-registration-current.jpg" class="enlarge-link" data-enlarge data-caption="SAML — ACS URL and Audience URI" target="_blank" rel="noopener">View full screenshot ↗</a></div><div class="screen-scroll"><img src="assets/saml-registration-current.jpg" width="1265" height="870" alt="SAML Create application screen showing both the ACS URL and SP entity ID, also called the Audience URI." loading="lazy"></div><figcaption>SAML · ACS URL and Audience URI</figcaption></figure>
+          </div>
+        </article>
+
         <article class="walkthrough-step" id="configure" data-step="configure" aria-labelledby="configure-heading">
           <div class="stage-copy">
             <p class="role-label"><span aria-hidden="true">●</span> Customer's IdP administrator</p>
             <h3 id="configure-heading">Connect the customer's identity provider.</h3>
             <div data-protocol="oidc">
-              <p>Open the invitation and register an application with the customer's OpenID Connect provider. Enter its discovery or endpoint details and client credentials.</p>
-              <p>Register the exact callback shown by the wizard. Then choose the stable identity and map the profile fields your application needs.</p>
-              <a class="text-link supporting-link" href="assets/2026-10-31-profile-mappings.png" data-enlarge data-caption="Prefilled profile mapping defaults" target="_blank" rel="noopener">See the mapping defaults <span aria-hidden="true">↗</span></a>
+              <p>Enter the <strong>OpenID configuration URL</strong>, <strong>client ID</strong> and <strong>client secret</strong>. If the invitation uses another authentication method, supply the credential it asks for.</p>
+              <p><strong>Automatic</strong> imports the provider endpoints when you continue. You can upload or paste its configuration document instead. Manual entry is available as a fallback.</p>
             </div>
             <div data-protocol="saml">
-              <p>Open the invitation and import the customer's SAML metadata, or enter its entity ID, sign-on URL and signing certificate.</p>
-              <p>Choose a stable NameID or released identity attribute. Once the draft is saved, register its exact ACS URL or import the generated service-provider metadata.</p>
-              <a class="text-link supporting-link" href="assets/2026-10-31-saml-registration.png" data-enlarge data-caption="SAML wizard — exact ACS and service-provider registration" target="_blank" rel="noopener">See the SAML registration screen <span aria-hidden="true">↗</span></a>
+              <p><strong>Automatic</strong> needs the provider's <strong>SAML metadata URL</strong>, or an uploaded/pasted XML document.</p>
+              <p><strong>Manual</strong> needs its entity ID, sign-on URL and public signing certificate. Request signing and HTTP Redirect/POST binding are under Advanced; requirements from imported metadata stay enforced.</p>
             </div>
-            <aside class="stage-aside"><strong>Mappings start with useful defaults.</strong> Profiles prefill source claim or attribute names; the provider supplies their values. Recipients can edit permitted sources and omit optional mappings. Required and locked rules stay enforced. The stable account ID is separate; native OIDC profile imports still apply.</aside>
-            <p class="stage-takeaway">The wizard saves a hidden draft before testing.</p>
+            <aside class="stage-aside"><strong>Required or optional?</strong> Fields marked * are required. Most setups can leave Advanced closed.</aside>
           </div>
           <div class="protocol-screens">
             <figure class="product-screen" data-protocol="oidc">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC configuration</span><a href="assets/2026-10-31-oidc-configuration.png" class="enlarge-link" data-enlarge data-caption="OIDC setup — provider configuration" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/2026-10-31-oidc-configuration.png" width="1265" height="1712" alt="The current customer OIDC configuration form with example provider details and a masked client secret." loading="lazy"></div>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC configuration</span><a href="assets/oidc-configuration-current.jpg" class="enlarge-link" data-enlarge data-caption="OIDC — discovery URL and application credentials" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/oidc-configuration-current.jpg" width="1265" height="1380" alt="OIDC automatic configuration with required OpenID configuration URL, client ID and masked client secret, with Advanced collapsed." loading="lazy"></div>
               <figcaption>Actual customer interface · OIDC configuration</figcaption>
             </figure>
             <figure class="product-screen" data-protocol="saml">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML configuration</span><a href="assets/2026-10-31-saml-configuration.png" class="enlarge-link" data-enlarge data-caption="SAML wizard — metadata and provider configuration" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/2026-10-31-saml-configuration.png" width="1265" height="1828" alt="The current customer SAML configuration form with metadata import and example identity-provider details." loading="lazy"></div>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML configuration</span><a href="assets/saml-configuration-current.jpg" class="enlarge-link" data-enlarge data-caption="SAML — automatic metadata URL import" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/saml-configuration-current.jpg" width="1265" height="1028" alt="SAML automatic configuration with one required metadata URL, a Manual option and collapsed Advanced settings." loading="lazy"></div>
               <figcaption>Actual customer interface · SAML configuration</figcaption>
             </figure>
+          </div>
+        </article>
+
+        <article class="walkthrough-step" id="mappings" data-step="mappings" aria-labelledby="mappings-heading">
+          <div class="stage-copy">
+            <p class="role-label"><span aria-hidden="true">●</span> Customer's IdP administrator · screen 3 of 4</p>
+            <h3 id="mappings-heading">Identify the account. Map its details.</h3>
+            <div data-protocol="oidc"><p>OIDC uses <code>sub</code> as the account identifier. Profile mappings copy details such as email and name; they do not replace that ID.</p></div>
+            <div data-protocol="saml"><p>Choose a stable <strong>Subject NameID</strong> or identity attribute. A transient NameID needs a separate stable identity attribute. Email or username profile mappings do not replace the identifier.</p></div>
+            <p>Keep the profile's prefilled sources, or edit the names your invitation permits. The provider supplies their values. Optional mappings can be removed; required mappings stay included.</p>
+            <aside class="stage-aside"><strong>Save, then test.</strong> Choose Create connection to save the configuration and open the test screen. Activation happens after testing.</aside>
+          </div>
+          <div class="protocol-screens">
+            <figure class="product-screen" data-protocol="oidc"><div class="screen-toolbar"><span>Customer wizard / Map claims</span><a href="assets/oidc-mappings-current.jpg" class="enlarge-link" data-enlarge data-caption="OIDC — account identity and profile mappings" target="_blank" rel="noopener">View full screenshot ↗</a></div><div class="screen-scroll"><img src="assets/oidc-mappings-current.jpg" width="1265" height="1223" alt="OIDC account identifier guidance and prefilled editable profile claim mappings." loading="lazy"></div><figcaption>OIDC · profile claims and account identity</figcaption></figure>
+            <figure class="product-screen" data-protocol="saml"><div class="screen-toolbar"><span>Customer wizard / Map claims</span><a href="assets/saml-mappings-current.jpg" class="enlarge-link" data-enlarge data-caption="SAML — stable identity and profile mappings" target="_blank" rel="noopener">View full screenshot ↗</a></div><div class="screen-scroll"><img src="assets/saml-mappings-current.jpg" width="1265" height="1330" alt="SAML stable identity source, requested NameID format and editable profile attribute mappings." loading="lazy"></div><figcaption>SAML · stable identity and profile attributes</figcaption></figure>
           </div>
         </article>
 
@@ -119,19 +147,20 @@
             <h3 id="test-heading">Confirm one stable identity.</h3>
             <p>Sign in twice with the same identity-provider account. Both tests must return the same stable account ID; the second test asks for fresh authentication.</p>
             <p>A different account or changing ID fails the comparison. The same test pair checks the connection when several organizations share it.</p>
-            <a class="text-link supporting-link" href="assets/2026-10-31-different-account.png" data-enlarge data-caption="Different account on the second sign-in — comparison rejected" target="_blank" rel="noopener">See a different-account rejection <span aria-hidden="true">↗</span></a>
+            <p><strong>4. Test sign-in.</strong> Run the first test, then the second when required. A different account or missing required claim is explained on this page. Correct the settings or restart the check, then test again. Closing the sign-in window lets you retry.</p>
+            <a class="text-link supporting-link" href="assets/test-sign-in-current.jpg" data-enlarge data-caption="Example provider — fresh sign-in by the same account" target="_blank" rel="noopener">See the sign-in window <span aria-hidden="true">↗</span></a>
             <aside class="stage-aside"><strong>Tests do not create users.</strong> The checks confirm a repeatable provider identity. They leave Keycloak users and linked accounts unchanged.</aside>
             <p class="stage-takeaway">The two-test policy is optional for new setup links. When enabled, it cannot be bypassed.</p>
           </div>
           <div class="protocol-screens">
             <figure class="product-screen" data-protocol="oidc">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC test results</span><a href="assets/2026-10-31-oidc-two-tests.png" class="enlarge-link" data-enlarge data-caption="Two sign-in tests — same stable account ID" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/2026-10-31-oidc-two-tests.png" width="1459" height="1610" alt="Two successful OIDC sign-in tests confirming that the provider returned the same stable account ID." loading="lazy"></div>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC test results</span><a href="assets/oidc-tests-current.jpg" class="enlarge-link" data-enlarge data-caption="OIDC — matching sign-ins and activation on the test screen" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/oidc-tests-current.jpg" width="1459" height="1921" alt="Two successful OIDC sign-ins with mapping checks and a separate activation section on the same test page." loading="lazy"></div>
               <figcaption>Two successful sign-in tests · OIDC</figcaption>
             </figure>
             <figure class="product-screen" data-protocol="saml">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML test results</span><a href="assets/2026-10-31-saml-two-tests.png" class="enlarge-link" data-enlarge data-caption="SAML wizard — two successful sign-in tests" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/2026-10-31-saml-two-tests.png" width="1265" height="1730" alt="Two successful SAML sign-in tests confirming that the provider returned the same stable account ID." loading="lazy"></div>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML test results</span><a href="assets/saml-tests-current.jpg" class="enlarge-link" data-enlarge data-caption="SAML — matching sign-ins and activation on the test screen" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/saml-tests-current.jpg" width="1459" height="2033" alt="Two successful SAML sign-ins with a confirmed user identifier and activation available on the test page." loading="lazy"></div>
               <figcaption>Two successful sign-in tests · SAML</figcaption>
             </figure>
           </div>
@@ -141,7 +170,7 @@
           <div class="stage-copy">
             <p class="role-label"><span aria-hidden="true">●</span> Customer's IdP administrator</p>
             <h3 id="activate-heading">Put the connection into service.</h3>
-            <p>Review the configuration and activate while the required test results are current. The draft becomes a native Keycloak identity provider.</p>
+            <p>Choose <strong>Activate connection</strong> at the bottom of the Test sign-in screen. Required confirmation must still be fresh: it lasts 15 minutes. There is no separate activation step to navigate to.</p>
             <p>The saved connection keeps every organization selected in the invitation. Your team can then verify an ordinary application sign-in. Optional <strong>Support</strong> and <strong>Return</strong> actions appear after successful activation, so the customer can open help or go back to your application.</p>
             <aside class="stage-aside"><strong>Update the same connection later.</strong> Open <strong>Connections</strong> and choose <strong>Create update link</strong> on its row. Its existing organizations stay attached.</aside>
             <p class="stage-takeaway">Keycloak continues to own users, sessions and access decisions.</p>
@@ -163,11 +192,11 @@
 
       <div class="walkthrough-controls" data-walkthrough-controls hidden>
         <button class="button button-secondary" type="button" data-previous disabled><span aria-hidden="true">←</span> Previous</button>
-        <p class="step-progress" data-progress>Step 1 of 4 <span aria-hidden="true">·</span> Invite</p>
-        <button class="button button-primary" type="button" data-next>Next: Configure <span aria-hidden="true">→</span></button>
+        <p class="step-progress" data-progress>Stage 1 of 6 <span aria-hidden="true">·</span> Invite</p>
+        <button class="button button-primary" type="button" data-next>Next: Create app <span aria-hidden="true">→</span></button>
       </div>
       <p class="visually-hidden" role="status" data-announcement></p>
-      <noscript><p class="noscript-note">All four stages and both protocols are shown below one another. Open any screenshot to view it at full size.</p></noscript>
+      <noscript><p class="noscript-note">All stages and both protocols are shown below one another. Open any screenshot to view it at full size.</p></noscript>
     </section>
 
     <section class="control-section shell section-space" id="features" aria-labelledby="features-heading">

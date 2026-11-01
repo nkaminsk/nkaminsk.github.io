@@ -1,8 +1,8 @@
 (() => {
   "use strict";
 
-  const stages = ["invite", "configure", "test", "activate"];
-  const labels = ["Invite", "Configure", "Test twice", "Activate"];
+  const stages = ["invite", "register", "configure", "mappings", "test", "activate"];
+  const labels = ["Invite", "Create app", "Configure", "Map claims", "Test & activate", "Ready"];
   const stepLinks = [...document.querySelectorAll("[data-step-select]")];
   const stepPanels = [...document.querySelectorAll("[data-step]")];
   const protocolButtons = [...document.querySelectorAll("[data-protocol-select]")];
@@ -32,12 +32,12 @@
       button.setAttribute("aria-pressed", String(button.dataset.protocolSelect === protocol));
     });
     previous.disabled = current === 0;
-    progress.textContent = `Step ${current + 1} of 4 · ${labels[current]}`;
+    progress.textContent = `Stage ${current + 1} of ${stages.length} · ${labels[current]}`;
     next.textContent = current === stages.length - 1
       ? "Restart walkthrough ↺"
       : `Next: ${labels[current + 1]} →`;
     if (announce) {
-      announcement.textContent = `${protocol.toUpperCase()} walkthrough. Step ${current + 1} of 4: ${labels[current]}.`;
+      announcement.textContent = `${protocol.toUpperCase()} walkthrough. Stage ${current + 1} of ${stages.length}: ${labels[current]}.`;
     }
   }
 
