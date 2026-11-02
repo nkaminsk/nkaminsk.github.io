@@ -9,8 +9,8 @@
   <title>SSO Setup Links for Keycloak</title>
   <link rel="canonical" href="https://nkaminsk.dev/keycloak-sso/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261101-flow">
-  <script src="walkthrough.js?v=20261101-flow" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261102-fields">
+  <script src="walkthrough.js?v=20261102-fields" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -104,7 +104,7 @@
             <h3 id="configure-heading">Connect the customer's identity provider.</h3>
             <div data-protocol="oidc">
               <p>Enter the <strong>OpenID configuration URL</strong>, <strong>client ID</strong> and <strong>client secret</strong>. If the invitation uses another authentication method, supply the credential it asks for.</p>
-              <p><strong>Automatic</strong> imports the provider endpoints when you continue. You can upload or paste its configuration document instead. Manual entry is available as a fallback.</p>
+              <p><strong>Automatic</strong> imports the provider endpoints when you continue. You can upload or paste its configuration document instead. Manual entry is an Advanced fallback. When editing a saved OIDC draft, its imported provider URLs stay under Advanced; mapping changes do not require re-entering them.</p>
             </div>
             <div data-protocol="saml">
               <p><strong>Automatic</strong> needs the provider's <strong>SAML metadata URL</strong>, or an uploaded/pasted XML document.</p>
@@ -132,12 +132,13 @@
             <h3 id="mappings-heading">Identify the account. Map its details.</h3>
             <div data-protocol="oidc"><p>OIDC uses <code>sub</code> as the account identifier. Profile mappings copy details such as email and name; they do not replace that ID.</p></div>
             <div data-protocol="saml"><p>Choose a stable <strong>Subject NameID</strong> or identity attribute. A transient NameID needs a separate stable identity attribute. Email or username profile mappings do not replace the identifier.</p></div>
-            <p>Keep the profile's prefilled sources, or edit the names your invitation permits. The provider supplies their values. Optional mappings can be removed; required mappings stay included.</p>
+            <p>Profiles supply the starting mappings and required fields. Edit permitted sources, <strong>Remove</strong> optional mappings, or choose an approved user field and <strong>Add mapping</strong>. Approve extra fields in <a href="#realm-settings">Realm settings</a>. The provider supplies the values; destination fields stay fixed.</p>
+            <p>Mapping rules belong to the connection; values are stored on the user in that realm. Removing a mapping does not erase saved values. Keycloak may still import standard OIDC profile claims automatically.</p>
             <aside class="stage-aside"><strong>Save, then test.</strong> Choose Create connection to save the configuration and open the test screen. Activation happens after testing.</aside>
           </div>
           <div class="protocol-screens">
-            <figure class="product-screen" data-protocol="oidc"><div class="screen-toolbar"><span>Customer wizard / Map claims</span><a href="assets/oidc-mappings-current.jpg" class="enlarge-link" data-enlarge data-caption="OIDC — account identity and profile mappings" target="_blank" rel="noopener">View full screenshot ↗</a></div><div class="screen-scroll"><img src="assets/oidc-mappings-current.jpg" width="1265" height="1223" alt="OIDC account identifier guidance and prefilled editable profile claim mappings." loading="lazy"></div><figcaption>OIDC · profile claims and account identity</figcaption></figure>
-            <figure class="product-screen" data-protocol="saml"><div class="screen-toolbar"><span>Customer wizard / Map claims</span><a href="assets/saml-mappings-current.jpg" class="enlarge-link" data-enlarge data-caption="SAML — stable identity and profile mappings" target="_blank" rel="noopener">View full screenshot ↗</a></div><div class="screen-scroll"><img src="assets/saml-mappings-current.jpg" width="1265" height="1330" alt="SAML stable identity source, requested NameID format and editable profile attribute mappings." loading="lazy"></div><figcaption>SAML · stable identity and profile attributes</figcaption></figure>
+            <figure class="product-screen" data-protocol="oidc"><div class="screen-toolbar"><span>Customer wizard / Map claims</span><a href="assets/oidc-mappings-current.jpg?v=20261102-fields" class="enlarge-link" data-enlarge data-caption="OIDC — profile defaults and an added realm-approved field" target="_blank" rel="noopener">View full screenshot ↗</a></div><div class="screen-scroll"><img src="assets/oidc-mappings-current.jpg?v=20261102-fields" width="1265" height="1529" alt="OIDC profile defaults, a required email mapping, and an optional employeeId field added from the realm-approved list." loading="lazy"></div><figcaption>OIDC · profile defaults plus an approved custom field</figcaption></figure>
+            <figure class="product-screen" data-protocol="saml"><div class="screen-toolbar"><span>Customer wizard / Map claims</span><a href="assets/saml-mappings-current.jpg?v=20261102-fields" class="enlarge-link" data-enlarge data-caption="SAML — stable identity and realm-approved custom mappings" target="_blank" rel="noopener">View full screenshot ↗</a></div><div class="screen-scroll"><img src="assets/saml-mappings-current.jpg?v=20261102-fields" width="1265" height="1635" alt="SAML stable identity source, required profile defaults and an added optional employeeId mapping." loading="lazy"></div><figcaption>SAML · stable identity and approved user fields</figcaption></figure>
           </div>
         </article>
 
@@ -257,17 +258,17 @@
         <article id="instance-profiles"><h3>Instance profiles</h3><p>Save shared setup rules for use across realms. A link still targets one realm and its authorized organizations.</p>
           <figure class="product-screen"><div class="screen-toolbar"><span>Profiles <span aria-hidden="true">/</span> Instance profiles</span><a href="assets/instance-profiles-current.jpg" class="enlarge-link" data-enlarge data-caption="Profiles — Instance profiles with the explicit scope switch" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div><div class="screen-scroll"><img src="assets/instance-profiles-current.jpg" width="1265" height="881" alt="Profiles workspace with Instance profiles selected and a separate Realm profiles switch." loading="lazy"></div><figcaption>Shared profiles · instance administrator scope</figcaption></figure>
         </article>
-        <article id="realm-profiles"><h3>Realm profiles</h3><p>Manage setup rules for the chosen realm. Switch back from Instance profiles with the same realm ready to use.</p>
+        <article id="realm-profiles"><h3>Realm profiles</h3><p>Profiles supply default mappings, required fields and source-editing rules. A shared instance profile can be reused across realms; custom fields still need to exist and be approved in each destination realm for new connections.</p>
           <figure class="product-screen"><div class="screen-toolbar"><span>Profiles <span aria-hidden="true">/</span> Realm profiles</span><a href="assets/realm-profiles-current.jpg" class="enlarge-link" data-enlarge data-caption="Profiles — Realm profiles with the selected realm preserved" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div><div class="screen-scroll"><img src="assets/realm-profiles-current.jpg" width="1265" height="1162" alt="Profiles workspace with Realm profiles selected and the chosen realm visible beside the scope controls." loading="lazy"></div><figcaption>Realm profiles · rules for the chosen realm</figcaption></figure>
         </article>
         <article id="instance-settings"><h3>Instance settings</h3><p>Set shared defaults once. Under <strong>After-setup links</strong>, enter an optional full HTTPS <strong>Support URL</strong> for help and <strong>Return URL</strong> for your application. Each realm inherits both values.</p>
           <figure class="product-screen"><div class="screen-toolbar"><span>Settings <span aria-hidden="true">/</span> Instance settings</span><a href="assets/instance-settings-current.jpg" class="enlarge-link" data-enlarge data-caption="Settings — Instance defaults and optional after-setup URLs" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div><div class="screen-scroll"><img src="assets/instance-settings-current.jpg" width="1265" height="1142" alt="Instance settings with optional Support URL and Return URL fields under After-setup links." loading="lazy"></div><figcaption>Instance defaults · configure the actual destination URLs</figcaption></figure>
         </article>
-        <article id="realm-settings"><h3>Realm settings</h3><p>Leave a URL blank to inherit its instance value, or override either field for this realm. An explicit profile URL wins. Both optional actions appear after successful setup or update and open only when clicked.</p>
-          <figure class="product-screen"><div class="screen-toolbar"><span>Settings <span aria-hidden="true">/</span> Realm settings</span><a href="assets/realm-settings-current.jpg" class="enlarge-link" data-enlarge data-caption="Settings — Realm URL overrides and inherited instance defaults" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div><div class="screen-scroll"><img src="assets/realm-settings-current.jpg" width="1265" height="2214" alt="Realm settings showing separate Support URL and Return URL overrides with inherited instance defaults." loading="lazy"></div><figcaption>Realm overrides · each URL inherits independently</figcaption></figure>
+        <article id="realm-settings"><h3>Realm settings</h3><p>Under <strong>Approved custom fields</strong>, choose existing fields from this realm’s Keycloak User profile. Customers can add them during new connection setup, even when they are absent from profile defaults. The extension does not create user fields. Each invitation keeps its saved list; changes affect future invitations.</p>
+          <figure class="product-screen"><div class="screen-toolbar"><span>Settings <span aria-hidden="true">/</span> Realm settings</span><a href="assets/realm-settings-current.jpg?v=20261102-fields" class="enlarge-link" data-enlarge data-caption="Settings — realm-approved custom fields and optional completion links" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div><div class="screen-scroll"><img src="assets/realm-settings-current.jpg?v=20261102-fields" width="1265" height="2461" alt="Realm settings with employeeId approved for new connection mappings and separate optional Support and Return URLs." loading="lazy"></div><figcaption>Realm settings · custom field approval and optional completion links</figcaption></figure>
         </article>
       </div>
-      <p class="settings-note">Resolved completion URLs are saved into each new invitation, including links without a profile. Existing invitations keep their saved URLs.</p>
+      <p class="settings-note">For new connections, missing or unapproved required profile fields prevent link creation; unavailable optional defaults are omitted. Update links retain their profile’s existing mapping rules. Optional Support and Return URLs inherit independently from instance settings and appear after successful setup; a profile can override either destination.</p>
     </section>
 
     <section class="shell section-space" id="api" aria-labelledby="api-heading">
@@ -327,11 +328,21 @@ Content-Type: application/json</code></pre>
         <p>For broader connection changes, use <code>purpose: "MAINTAIN"</code> with a saved profile that permits the changes and requires two tests.</p>
         <p>To add organizations directly, send <code>{"organizationIds":["&lt;additional-org-id&gt;"]}</code> to <code>POST /connections/&lt;immutable-connection-id&gt;/organizations</code>. This adds native associations without removing existing ones or issuing an invitation.</p>
       </details>
+      <details class="api-more" id="mapping-api">
+      <summary>Optional: approve custom fields by API</summary>
+      <p>Realm owners can read the available and approved custom fields, then save the names customers may add to new connections. This is separate from creating an invitation; its realm and organization scope stays the same.</p>
+      <pre class="api-code"><code>GET /admin/realms/partner-demo/idp-setup-links/profiles/settings
+PUT /admin/realms/partner-demo/idp-setup-links/profiles/settings/mapping-fields
+Content-Type: application/json
+
+{"approvedMappingFields":["employeeId","department"]}</code></pre>
+      <p>GET returns <code>availableMappingFields</code> and <code>approvedMappingFields</code>. Approve up to 32 existing custom fields; an empty list clears approval. Instance settings do not define or provision fields. A missing or unapproved required profile field blocks CREATE with <code>required_mapping_unavailable</code>.</p>
+      </details>
     </section>
 
     <section class="installation-section section-space" id="installation" aria-labelledby="installation-heading">
       <div class="shell installation-grid">
-        <div class="section-heading"><p class="eyebrow">Installation footprint</p><h2 id="installation-heading">One provider JAR.<br>Your existing Keycloak.</h2><p>Both interfaces ship with the extension. No separate frontend service, plugin database or runtime Node installation is required.</p><p class="baseline-label">Qualified baseline <strong>Keycloak 26.8.1</strong></p></div>
+        <div class="section-heading"><p class="eyebrow">Installation footprint</p><h2 id="installation-heading">One provider JAR.<br>Your existing Keycloak.</h2><p>Both interfaces ship with the extension. No separate frontend service, plugin database or runtime Node installation is required.</p><p class="baseline-label">Tested baseline <strong>Keycloak 26.8.1</strong></p></div>
         <div class="install-details">
           <ol class="install-list">
             <li><span>01</span><div><h3>Add the extension to your server image.</h3><p>Place the JAR in Keycloak's <code>providers/</code> directory, then run <code>bin/kc.sh build</code> before starting the optimized server.</p></div></li>
@@ -346,7 +357,7 @@ Content-Type: application/json</code></pre>
 
   </main>
 
-  <footer class="site-footer shell"><div><span class="footer-wordmark">SSO Setup Links</span><p>A Keycloak extension by illimité.</p></div><p>Development preview · 1 November 2026<br>Real interfaces. Example data.</p></footer>
+  <footer class="site-footer shell"><div><span class="footer-wordmark">SSO Setup Links</span><p>A Keycloak extension by illimité.</p></div><p>Development preview · 2 November 2026<br>Real interfaces. Example data.</p></footer>
 
   <dialog class="image-dialog" aria-labelledby="image-dialog-title" data-image-dialog>
     <div class="dialog-toolbar"><h2 id="image-dialog-title">Product screenshot</h2><button class="button button-secondary" type="button" data-close-image autofocus>Close <span aria-hidden="true">×</span></button></div>
