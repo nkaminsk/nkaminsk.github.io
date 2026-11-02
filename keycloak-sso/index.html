@@ -9,8 +9,8 @@
   <title>SSO Setup Links for Keycloak</title>
   <link rel="canonical" href="https://nkaminsk.dev/keycloak-sso/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261102-custom">
-  <script src="walkthrough.js?v=20261102-custom" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261102-branding">
+  <script src="walkthrough.js?v=20261102-branding" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -153,6 +153,7 @@
             <p>A different account or changing ID fails the comparison. The same test pair checks the connection when several organizations share it.</p>
             <p><strong>4. Test sign-in.</strong> Run the first test, then the second when required. A different account or missing required claim is explained on this page. Correct the settings or restart the check, then test again. Closing the sign-in window lets you retry.</p>
             <p><strong>Back</strong> preserves edits while you review earlier steps. <strong>Cancel editing</strong> restores the saved draft. Saving changes requires fresh sign-in tests.</p>
+            <p>A <strong>draft</strong> is the saved test connection. Activation makes it live; an update keeps the current connection in use until you apply the tested changes.</p>
             <a class="text-link supporting-link" href="assets/test-sign-in-current.jpg" data-enlarge data-caption="Example provider — fresh sign-in by the same account" target="_blank" rel="noopener">See the sign-in window <span aria-hidden="true">↗</span></a>
             <aside class="stage-aside"><strong>Tests do not create users.</strong> The checks confirm a repeatable provider identity. They leave Keycloak users and linked accounts unchanged.</aside>
             <p class="stage-takeaway">The two-test policy is optional for new setup links. When enabled, it cannot be bypassed.</p>
@@ -273,6 +274,9 @@
         </article>
       </div>
       <p class="settings-note">For new connections, missing or unapproved required profile fields prevent link creation; unavailable optional defaults are omitted. Update links retain their profile’s existing mapping rules. Optional Support and Return URLs inherit independently from instance settings and appear after successful setup; a profile can override either destination.</p>
+      <article id="branding"><h3>Brand the customer setup page.</h3><p>In the profile editor, <strong>Setup page branding</strong> sets your brand name, uploaded logo, primary color and optional welcome heading/message. Use an instance profile across realms, or a realm profile for different branding. Each invitation keeps its saved profile version; changes apply to new invitations. Actual sign-in pages keep the identity provider’s theme.</p>
+        <figure class="product-screen"><div class="screen-toolbar"><span>Profile editor / Setup page branding</span><a href="assets/setup-page-branding-current.jpg" class="enlarge-link" data-enlarge data-caption="Profile branding — name, color, logo and optional welcome copy" target="_blank" rel="noopener">View full screenshot ↗</a></div><div class="screen-scroll"><img src="assets/setup-page-branding-current.jpg" width="1440" height="1000" alt="Profile editor with brand name, primary color, optional welcome heading and message, and a logo upload." loading="lazy"></div><figcaption>Reusable branding · fixed technical instructions</figcaption></figure>
+      </article>
     </section>
 
     <section class="shell section-space" id="api" aria-labelledby="api-heading">
