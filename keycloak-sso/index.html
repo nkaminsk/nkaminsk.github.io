@@ -89,7 +89,7 @@
             <p class="role-label"><span aria-hidden="true">●</span> Customer's IdP administrator · screen 1 of 4</p>
             <h3 id="register-heading">Create the application at your provider.</h3>
             <p>Open the invitation and choose <strong>Custom OIDC</strong> or <strong>Custom SAML</strong>. The invitation determines which buttons are available.</p>
-            <p>Opening consumes the one-time ticket and starts a fixed browser session, 30 minutes by default. The invitation has a separate expiry date. Reloading does not extend the session; after it expires, request a new invitation.</p>
+            <p>The invitation works until it expires, is revoked or setup completes. Active work keeps the session open. After 30 minutes of inactivity by default, reopen the original invitation to start again; previous draft settings and tests are cleared. An update restart leaves the live connection unchanged.</p>
             <div data-protocol="oidc"><p>Copy the exact <strong>Redirect URI / callback URL</strong> into a confidential OIDC application at your provider. Use Authorization Code; Keycloak exchanges the code on the server.</p><p>Save the application and keep its client ID and credential ready for the next screen.</p></div>
             <div data-protocol="saml"><p>Copy both the <strong>Assertion consumer service (ACS) URL</strong> and <strong>SP entity ID / Audience URI</strong> into a SAML application at your provider.</p><p>Both values are available before you enter the provider configuration. Keep its metadata URL ready for the next screen.</p></div>
             <aside class="stage-aside"><strong>Register the exact values.</strong> The callback belongs to this connection. A realm address alone does not replace it.</aside>
