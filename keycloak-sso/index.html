@@ -150,9 +150,9 @@
           <div class="stage-copy">
             <p class="role-label"><span aria-hidden="true">●</span> Customer's IdP administrator</p>
             <h3 id="test-heading">Confirm one stable identity.</h3>
-            <p>Sign in twice with the same identity-provider account. Both tests must return the same stable account ID; the second test asks for fresh authentication.</p>
-            <p>A different account or changing ID fails the comparison. The same test pair checks the connection when several organizations share it.</p>
+            <p>When two tests are required, sign in twice with the same identity-provider account. Both must return the same user ID; the second asks for fresh authentication. This compares returned identities, not how the provider authenticated the person.</p>
             <p><strong>4. Test sign-in.</strong> Run the first test, then the second when required. A different account or missing required claim is explained on this page. Correct the settings or restart the check, then test again. Closing the sign-in window lets you retry.</p>
+            <p>Open <strong>Test details</strong> under either result to inspect the user ID and available verified OIDC claims and UserInfo, or SAML NameID and attributes, including failed claim validation. Tokens and credentials are hidden. Preview size limits can shorten values or omit claims. Details expire after 15 minutes and stay out of activity logs and notifications.</p>
             <p><strong>Back</strong> preserves edits while you review earlier steps. <strong>Cancel editing</strong> restores the saved draft. Saving changes clears earlier test results. Complete the tests required by the invitation before activation.</p>
             <p>A <strong>draft</strong> is the saved test connection. Activation makes it live; an update keeps the current connection in use until you apply the tested changes.</p>
             <a class="text-link supporting-link" href="assets/test-sign-in-current.jpg" data-enlarge data-caption="Example provider — fresh sign-in by the same account" target="_blank" rel="noopener">See the sign-in window <span aria-hidden="true">↗</span></a>
@@ -161,13 +161,13 @@
           </div>
           <div class="protocol-screens">
             <figure class="product-screen" data-protocol="oidc">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC test results</span><a href="assets/oidc-tests-current.jpg" class="enlarge-link" data-enlarge data-caption="OIDC — matching sign-ins and activation on the test screen" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/oidc-tests-current.jpg" width="1459" height="1921" alt="Two successful OIDC sign-ins with mapping checks and a separate activation section on the same test page." loading="lazy"></div>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> OIDC test results</span><a href="assets/oidc-tests-current.jpg?v=20261106-details" class="enlarge-link" data-enlarge data-caption="OIDC — matching sign-ins, Test details and activation" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/oidc-tests-current.jpg?v=20261106-details" width="1459" height="2002" alt="Two successful OIDC sign-ins, expandable Test details under each result, and activation on the same page." loading="lazy"></div>
               <figcaption>Two successful sign-in tests · OIDC</figcaption>
             </figure>
             <figure class="product-screen" data-protocol="saml">
-              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML test results</span><a href="assets/saml-tests-current.jpg" class="enlarge-link" data-enlarge data-caption="SAML — matching sign-ins and activation on the test screen" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
-              <div class="screen-scroll"><img src="assets/saml-tests-current.jpg" width="1459" height="2033" alt="Two successful SAML sign-ins with a confirmed user identifier and activation available on the test page." loading="lazy"></div>
+              <div class="screen-toolbar"><span>Customer wizard <span aria-hidden="true">/</span> SAML test results</span><a href="assets/saml-tests-current.jpg?v=20261106-details" class="enlarge-link" data-enlarge data-caption="SAML — matching sign-ins, Test details and activation" target="_blank" rel="noopener">View full screenshot <span aria-hidden="true">↗</span></a></div>
+              <div class="screen-scroll"><img src="assets/saml-tests-current.jpg?v=20261106-details" width="1459" height="2114" alt="Two successful SAML sign-ins with a confirmed user ID, expandable Test details, and activation available." loading="lazy"></div>
               <figcaption>Two successful sign-in tests · SAML</figcaption>
             </figure>
           </div>
@@ -282,6 +282,7 @@
 
     <section class="shell section-space" id="api" aria-labelledby="api-heading">
       <div class="section-heading"><p class="eyebrow">For your backend</p><h2 id="api-heading">The same scoped invitation.<br>A small API request.</h2><p>The realm’s name goes in the URL; native organization IDs go in the JSON body. Use a Keycloak bearer token with permission for every affected organization.</p></div>
+      <p>On Keycloak 26.8.2, add the built-in <code>kc-admin-api</code> client scope to your backend client as a default scope, or request it as an optional scope when obtaining the token. It supplies the required Admin API audience; it grants no permissions. Missing scope or audience returns HTTP 401.</p>
       <pre class="api-code"><code>POST https://YOUR-KEYCLOAK/admin/realms/partner-demo/idp-setup-links
 Authorization: Bearer &lt;access-token&gt;
 Content-Type: application/json</code></pre>
@@ -300,6 +301,7 @@ Content-Type: application/json</code></pre>
   "targetIdentityProviderId": "&lt;immutable-connection-id&gt;"
 }</code></pre>
           <p>Use the connection’s immutable ID, not its name. Omit organization fields: the server derives and checks all its existing associations.</p>
+          <p>Issuing updates also requires native <code>manage-identity-providers</code> authority unless the connection permits delegated updates. You must have authority over every linked organization.</p>
         </article>
       </div>
       <div class="api-values" aria-labelledby="api-values-heading">
@@ -325,7 +327,7 @@ Content-Type: application/json</code></pre>
         <dl class="api-fields">
           <div><dt><code>expirationSeconds</code></dt><dd>Integer lifetime in seconds, within the profile’s limit. Omit for the configured default.</dd></div>
           <div><dt><code>requireTwoSuccessfulTests</code></dt><dd>Boolean. <code>true</code> requires two matching sign-ins; it cannot weaken a profile’s requirement.</dd></div>
-          <div><dt><code>profileId</code> / <code>profileRevision</code></dt><dd>Select an enabled profile and optionally its latest enabled revision. Omit both for the configured default or standard rules.</dd></div>
+          <div><dt><code>profileId</code> / <code>profileRevision</code></dt><dd>Select an enabled profile and optionally its latest enabled revision. Omit both for the realm default, then the instance default, then standard rules.</dd></div>
         </dl>
         <p>For a shared connection, replace <code>organizationId</code> with <code>organizationIds</code>. No organization domain is required.</p>
         <p>Optional settings can narrow the profile’s rules, never weaken them.</p>
@@ -351,7 +353,7 @@ Content-Type: application/json
 
     <section class="installation-section section-space" id="installation" aria-labelledby="installation-heading">
       <div class="shell installation-grid">
-        <div class="section-heading"><p class="eyebrow">Installation footprint</p><h2 id="installation-heading">One provider JAR.<br>Your existing Keycloak.</h2><p>Both interfaces ship with the extension. No separate frontend service, plugin database or runtime Node installation is required.</p><p class="baseline-label">Tested baseline <strong>Keycloak 26.8.1</strong></p></div>
+        <div class="section-heading"><p class="eyebrow">Installation footprint</p><h2 id="installation-heading">One provider JAR.<br>Your existing Keycloak.</h2><p>Both interfaces ship with the extension. No separate frontend service, plugin database or runtime Node installation is required.</p><p class="baseline-label">Tested baseline <strong>Keycloak 26.8.2</strong></p></div>
         <div class="install-details">
           <ol class="install-list">
             <li><span>01</span><div><h3>Add the extension to your server image.</h3><p>Place the JAR in Keycloak's <code>providers/</code> directory, then run <code>bin/kc.sh build</code> before starting the optimized server.</p></div></li>
@@ -360,13 +362,15 @@ Content-Type: application/json
           </ol>
           <div class="url-example"><span>Owner panel URL pattern</span><code>https://YOUR-KEYCLOAK/realms/master/idp-setup/admin</code></div>
           <p class="install-footnote">The JAR adds its own metadata tables through Keycloak's existing database connection. Owner-managed setup profiles and permitted branding live in the panel; infrastructure secrets and server settings remain deployment configuration.</p>
+          <p class="install-footnote">Normal organization sign-in can require Keycloak email verification; configure native realm SMTP when needed. Setup tests do not create users or send verification emails.</p>
+          <p class="install-footnote">Keep tracing disabled on this baseline because of the host's <a href="https://github.com/advisories/GHSA-ccrj-gw8r-854m">OpenTelemetry advisory</a>. Qualify a patched host before enabling it.</p>
         </div>
       </div>
     </section>
 
   </main>
 
-  <footer class="site-footer shell"><div><span class="footer-wordmark">SSO Setup Links</span><p>A Keycloak extension by illimité.</p></div><p>Development preview · 2 November 2026<br>Real interfaces. Example data.</p></footer>
+  <footer class="site-footer shell"><div><span class="footer-wordmark">SSO Setup Links</span><p>A Keycloak extension by illimité.</p></div><p>Development preview · 6 November 2026<br>Real interfaces. Example data.</p></footer>
 
   <dialog class="image-dialog" aria-labelledby="image-dialog-title" data-image-dialog>
     <div class="dialog-toolbar"><h2 id="image-dialog-title">Product screenshot</h2><button class="button button-secondary" type="button" data-close-image autofocus>Close <span aria-hidden="true">×</span></button></div>
