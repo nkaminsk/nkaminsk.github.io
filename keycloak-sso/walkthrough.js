@@ -1,6 +1,12 @@
 (() => {
   "use strict";
 
+  const publicUrl = new URL(window.location.href);
+  if (publicUrl.searchParams.has("v")) {
+    publicUrl.searchParams.delete("v");
+    window.history.replaceState(null, "", `${publicUrl.pathname}${publicUrl.search}${publicUrl.hash}`);
+  }
+
   const stages = ["invite", "register", "configure", "mappings", "test", "activate"];
   const labels = ["Invite", "Create app", "Configure", "Map claims", "Test & activate", "Ready"];
   const stepLinks = [...document.querySelectorAll("[data-step-select]")];
@@ -126,4 +132,19 @@
   document.querySelector("[data-protocol-controls]").hidden = false;
   document.querySelector("[data-walkthrough-controls]").hidden = false;
   document.documentElement.classList.add("enhanced");
+})();
+
+(() => {
+  const openReference = () => {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target?.matches('#api details')) target.open = true;
+  };
+  document.querySelectorAll('#api a[href^="#api-"]').forEach(link => {
+    link.addEventListener('click', () => {
+      const target = document.getElementById(link.getAttribute('href').slice(1));
+      if (target?.tagName === 'DETAILS') target.open = true;
+    });
+  });
+  addEventListener('hashchange', openReference);
+  openReference();
 })();

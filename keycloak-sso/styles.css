@@ -130,10 +130,10 @@ h1 span { color: var(--accent); }
 .ownership-mark { font-size: 1.5rem; color: var(--accent); line-height: 1.1; }
 .ownership-note p { max-width: 850px; font-size: .83rem; color: var(--muted); }
 .ownership-note strong { color: var(--ink); font-weight: 600; }
-.shared-grid, .api-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 32px; }
-.shared-grid > div, .api-grid > article { min-width: 0; }
-.shared-grid h3, .api-grid h3 { font-size: 1.12rem; line-height: 1.4; }
-.shared-grid > div > p, .api-grid p { margin-top: 12px; color: var(--muted); font-size: .84rem; }
+.shared-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 32px; }
+.shared-grid > div { min-width: 0; }
+.shared-grid h3 { font-size: 1.12rem; line-height: 1.4; }
+.shared-grid > div > p { margin-top: 12px; color: var(--muted); font-size: .84rem; }
 .shared-grid .product-screen { margin-top: 20px; }
 .workspace-overview { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.65fr); gap: 34px; align-items: start; margin-top: 32px; }
 .workspace-copy, .workspace-grid > article { min-width: 0; }
@@ -142,23 +142,17 @@ h1 span { color: var(--accent); }
 .workspace-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 32px; margin-top: 32px; }
 .workspace-grid > article { scroll-margin-top: 28px; }
 .workspace-grid .product-screen { margin-top: 20px; }
+#branding { margin-top: 32px; scroll-margin-top: 28px; }
+#branding h3 { font-size: 1.12rem; line-height: 1.4; }
+#branding > p { max-width: 900px; margin-top: 12px; color: var(--muted); font-size: .84rem; }
+#branding .product-screen { margin-top: 20px; }
 .api-code { min-width: 0; max-width: 100%; overflow-x: auto; margin: 20px 0 0; padding: 20px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); font-size: .83rem; line-height: 1.7; }
 .api-code code { overflow-wrap: normal; }
-.api-values { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line); }
-.api-values h3 { font-size: 1rem; line-height: 1.4; }
-.api-values dl, .api-fields { display: grid; gap: 12px; margin: 16px 0 0; font-size: .8rem; }
-.api-values dl > div, .api-fields > div { display: grid; grid-template-columns: minmax(0, 190px) minmax(0, 1fr); gap: 18px; }
-.api-values dt, .api-fields dt { color: var(--ink); }
-.api-values dd, .api-fields dd { margin: 0; color: var(--muted); }
-.api-values code, .api-fields code { overflow-wrap: anywhere; }
-.api-values dl { gap: 20px; }
-.api-values dl > div + div { padding-top: 20px; border-top: 1px solid var(--line); }
-.api-enum-list { display: grid; gap: 12px; list-style: none; margin: 0; padding: 0; }
-.api-enum-list li { display: grid; gap: 3px; }
-.api-enum-list code { width: fit-content; max-width: 100%; color: var(--ink); }
-.api-enum-intro { margin-bottom: 12px; }
-.api-outcome { margin-top: 26px; color: var(--muted); font-size: .86rem; }
-.api-outcome strong { color: var(--ink); }
+.api-fields { display: grid; gap: 12px; margin: 16px 0 0; font-size: .8rem; }
+.api-fields > div { display: grid; grid-template-columns: minmax(0, 190px) minmax(0, 1fr); gap: 18px; }
+.api-fields dt { color: var(--ink); }
+.api-fields dd { margin: 0; color: var(--muted); }
+.api-fields code { overflow-wrap: anywhere; }
 .api-more { margin-top: 18px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 7px; }
 .api-more summary { cursor: pointer; font-size: .86rem; font-weight: 600; }
 .api-more p { margin-top: 15px; color: var(--muted); font-size: .83rem; }
@@ -177,6 +171,9 @@ summary:focus-visible { outline: 3px solid #397b56; outline-offset: 5px; }
 .url-example { margin-top: 27px; background: #e1e8dd; border-radius: 5px; padding: 15px 17px; }
 .url-example span { display: block; color: var(--muted); font-size: .65rem; margin-bottom: 6px; }
 .url-example code { font-size: .72rem; overflow-wrap: anywhere; line-height: 1.7; }
+.in-plugin-guide { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); scroll-margin-top: 24px; }
+.in-plugin-guide h3 { font-size: .95rem; font-weight: 600; }
+.in-plugin-guide > p { margin-top: 10px; font-size: .83rem; color: var(--muted); }
 .install-footnote { font-size: .72rem; color: var(--muted); margin-top: 19px; }
 .site-footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; padding-block: 36px; }
 .footer-wordmark { font-size: 1.4rem; }
@@ -192,6 +189,60 @@ summary:focus-visible { outline: 3px solid #397b56; outline-offset: 5px; }
 .dialog-image-scroll { overflow: auto; flex: 1; min-height: 0; background: #f7f8f8; }
 .dialog-image-scroll img { width: 1440px; max-width: none; height: auto; display: block; margin-inline: auto; }
 .dialog-footnote { flex-shrink: 0; padding: 12px 22px; font-size: .68rem; color: var(--muted); border-top: 1px solid var(--line); }
+
+#api .api-steps {
+  list-style: none;
+  counter-reset: api-step;
+  display: grid;
+  gap: 34px;
+  margin: 32px 0 0;
+  padding: 0;
+  max-width: 960px;
+}
+#api .api-steps > li {
+  counter-increment: api-step;
+  min-width: 0;
+  padding-left: 42px;
+  position: relative;
+}
+#api .api-steps > li::before {
+  content: counter(api-step);
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--tint);
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 600;
+}
+#api .api-steps h3 { font-size: 1.12rem; line-height: 1.4; }
+#api .api-steps p { margin-top: 12px; color: var(--muted); font-size: .86rem; }
+#api .api-steps p strong { color: var(--ink); }
+#api .api-steps .supporting-link { margin-top: 12px; }
+#api .api-reference-group { margin-top: 32px; }
+#api .api-table-wrap { margin-top: 20px; overflow-x: auto; }
+#api .api-table { width: 100%; border-collapse: collapse; font-size: .83rem; text-align: left; }
+#api .api-table caption { padding-bottom: 12px; color: var(--ink); font-size: .86rem; font-weight: 600; text-align: left; }
+#api .api-table th, #api .api-table td { padding: 14px 16px; border-top: 1px solid var(--line); vertical-align: top; }
+#api .api-table thead th { background: var(--soft); font-weight: 600; }
+#api .api-table tbody th { width: 230px; font-weight: 500; }
+#api .api-table td { color: var(--muted); }
+#api .api-nested { margin-top: 20px; padding: 16px 0 4px; border-top: 1px solid var(--line); }
+#api .api-fields > div { grid-template-columns: minmax(0, 240px) minmax(0, 1fr); }
+#api .api-guide-note { margin-top: 20px; color: var(--muted); font-size: .83rem; }
+#api .api-code { font-size: .84rem; line-height: 1.75; }
+#api .api-code code { font-size: inherit; overflow-wrap: normal; }
+@media (max-width: 650px) {
+  #api .api-steps > li { padding-left: 0; padding-top: 38px; }
+  #api .api-table th, #api .api-table td { padding: 12px 10px; }
+  #api .api-table tbody th { width: 34%; min-width: 130px; }
+  #api .api-fields > div { grid-template-columns: minmax(0, 1fr); gap: 3px; }
+}
 
 @media (min-width: 1540px) { .shell { width: min(1280px, calc(100% - 128px)); } }
 @media (max-width: 1000px) {
@@ -231,7 +282,7 @@ summary:focus-visible { outline: 3px solid #397b56; outline-offset: 5px; }
   .step-nav strong { font-size: .77rem; }
   .section-space { margin-top: 60px; }
   .feature-grid { gap: 27px; }
-  .shared-grid, .api-grid, .workspace-grid, .workspace-overview { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .shared-grid, .workspace-grid, .workspace-overview { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .feature-grid h3 { font-size: 1.08rem; }
   .feature-grid p { font-size: .79rem; }
   .installation-grid { grid-template-columns: 1fr; gap: 35px; }
@@ -282,7 +333,7 @@ summary:focus-visible { outline: 3px solid #397b56; outline-offset: 5px; }
   .feature-grid p { font-size: .84rem; }
   .ownership-note { gap: 12px; }
   .ownership-note p { font-size: .8rem; }
-  .api-values dl > div, .api-fields > div { grid-template-columns: minmax(0, 1fr); gap: 3px; }
+  .api-fields > div { grid-template-columns: minmax(0, 1fr); gap: 3px; }
   .installation-section { padding-block: 36px; }
   .install-list li { gap: 14px; }
   .install-list p { font-size: .8rem; }
